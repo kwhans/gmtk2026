@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bgv08r1execxh"]
+
+[ext_resource type="PackedScene" uid="uid://b6llacvqkdktw" path="res://game/Torch.tscn" id="1_qtduu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oi33o"]
+
+[node name="PlayerRoot" type="Node3D" unique_id=1112919133]
+
+[node name="TorchOffset" type="Node3D" parent="." unique_id=552937758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Torch" parent="TorchOffset" unique_id=630770646 instance=ExtResource("1_qtduu")]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1500963314]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=343661307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_oi33o")
