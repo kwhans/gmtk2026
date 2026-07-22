@@ -70,3 +70,7 @@ draw_pass_1 = SubResource("QuadMesh_aun6x")
 [node name="OmniLight3D" type="OmniLight3D" parent="TorchStick" unique_id=34799019]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 light_color = Color(1, 0.8156863, 0.06666667, 1)
+light_energy = 3.0
+light_size = 0.22
+omni_range = 20.0
+omni_attenuation = 2.0

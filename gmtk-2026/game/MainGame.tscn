@@ -9,11 +9,17 @@
 [sub_resource type="Resource" id="Resource_aeyhu"]
 script = ExtResource("5_agtre")
 
+[sub_resource type="Environment" id="Environment_oi33o"]
+background_energy_multiplier = 0.1
+ambient_light_energy = 0.1
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 0.25
+
 [node name="GameRoot" type="Node3D" unique_id=65649116]
 
 [node name="MainCamera3D" type="Camera3D" parent="." unique_id=1112213491]
 transform = Transform3D(1, 0, 0, 0, 0.83425343, 0.55138123, 0, -0.55138123, 0.83425343, 0, 3.729929, 1.4018185)
-top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="MainCamera3D" unique_id=2042073969]
 process_priority = 300
@@ -41,7 +47,7 @@ follow_distance = 2.0
 vertical_rotation_offset = 0.7941248096574199
 spring_length = 2.0
 look_at_offset = Vector3(0, 2.5, 0)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
-align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1206180581]
+environment = SubResource("Environment_oi33o")
