@@ -12,7 +12,7 @@ script = ExtResource("5_agtre")
 [node name="GameRoot" type="Node3D" unique_id=65649116]
 
 [node name="MainCamera3D" type="Camera3D" parent="." unique_id=1112213491]
-transform = Transform3D(1, 0, 0, 0, 0.9701425, -0.24253564, 0, 0.24253564, 0.9701425, 0, 2.3034282, 2)
+transform = Transform3D(1, 0, 0, 0, 0.83425343, 0.55138123, 0, -0.55138123, 0.83425343, 0, 3.729929, 1.4018185)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="MainCamera3D" unique_id=2042073969]
@@ -29,7 +29,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30342817, 0)
 
 [node name="PhantomCamera3D" type="Node3D" parent="." unique_id=474255065 node_paths=PackedStringArray("follow_target", "look_at_target")]
-transform = Transform3D(1, 0, 0, 0, 0.9701425, -0.24253564, 0, 0.24253564, 0.9701425, 0, 2.3034282, 2)
+transform = Transform3D(1, 0, 0, 0, 0.83425343, 0.55138123, 0, -0.55138123, 0.83425343, 0, 3.729929, 1.4018185)
 script = ExtResource("4_r4rta")
 follow_mode = 6
 follow_target = NodePath("../PlayerRoot")
@@ -38,6 +38,7 @@ look_at_target = NodePath("../PlayerRoot")
 tween_resource = SubResource("Resource_aeyhu")
 follow_offset = Vector3(0, 2, 0)
 follow_distance = 2.0
+vertical_rotation_offset = 0.7941248096574199
 spring_length = 2.0
 look_at_offset = Vector3(0, 2.5, 0)
 align_transform_with_view = Callable()

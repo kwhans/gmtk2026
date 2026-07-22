@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://csujr6vysgpam"]
+
+[ext_resource type="Texture2D" uid="uid://iyvf1pgkf3n1" path="res://levels/textures/Boulder.png" id="1_wxk2p"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oi33o"]
+size = Vector3(10, 10, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aun6x"]
+albedo_texture = ExtResource("1_wxk2p")
+roughness = 0.7
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_oi33o"]
+material = SubResource("StandardMaterial3D_aun6x")
+size = Vector3(10, 10, 1)
+
+[node name="Wall" type="Node3D" unique_id=717200441]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=189737042]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=864562185]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+shape = SubResource("BoxShape3D_oi33o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=739886631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+mesh = SubResource("BoxMesh_oi33o")

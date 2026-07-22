@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://br8lpoiiuldg6"]
 
+[ext_resource type="PackedScene" uid="uid://csujr6vysgpam" path="res://levels/wall.tscn" id="1_ll3ey"]
+[ext_resource type="Texture2D" uid="uid://cmn20nybuf0uo" path="res://levels/textures/Grass.png" id="1_rgp34"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxk2p"]
+albedo_texture = ExtResource("1_rgp34")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+
 [sub_resource type="BoxMesh" id="BoxMesh_aun6x"]
+material = SubResource("StandardMaterial3D_wxk2p")
 size = Vector3(100, 1, 100)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oi33o"]
@@ -11,8 +20,23 @@ size = Vector3(100, 1, 100)
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=345876005]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=437372203]
+[node name="FloorMesh" type="MeshInstance3D" parent="StaticBody3D" unique_id=437372203]
 mesh = SubResource("BoxMesh_aun6x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1676008567]
 shape = SubResource("BoxShape3D_oi33o")
+
+[node name="Wall" parent="." unique_id=717200441 instance=ExtResource("1_ll3ey")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 5, 0, 0)
+
+[node name="Wall2" parent="." unique_id=967787187 instance=ExtResource("1_ll3ey")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -5, 0, 0)
+
+[node name="Wall3" parent="." unique_id=704525093 instance=ExtResource("1_ll3ey")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 5, 0, 10)
+
+[node name="Wall4" parent="." unique_id=825789407 instance=ExtResource("1_ll3ey")]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, -5, 0, 10)
+
+[node name="Wall5" parent="." unique_id=1569176974 instance=ExtResource("1_ll3ey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
