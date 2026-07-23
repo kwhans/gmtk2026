@@ -23,8 +23,10 @@ fog_density = 0.25
 script = ExtResource("1_q5fd3")
 
 [node name="MainCamera3D" type="Camera3D" parent="." unique_id=1112213491]
-transform = Transform3D(1, 0, 0, 0, 0.83425343, 0.55138123, 0, -0.55138123, 0.83425343, 0, 3.729929, 1.4018185)
-near = 1.0
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70090926, 0, 4.229929, 1.4018185)
+top_level = true
+near = 0.135
 
 [node name="PhantomCameraHost" type="Node" parent="MainCamera3D" unique_id=2042073969]
 process_priority = 300
@@ -48,6 +50,7 @@ script = ExtResource("4_r4rta")
 follow_mode = 6
 follow_target = NodePath("..")
 tween_resource = SubResource("Resource_aeyhu")
+tween_on_load = false
 follow_offset = Vector3(0, 2.5, 0)
 follow_distance = 2.0
 vertical_rotation_offset = 0.7941248096574199
