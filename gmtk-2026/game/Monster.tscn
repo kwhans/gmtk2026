@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://8hvvyn2wr8yo"]
+
+[ext_resource type="Script" uid="uid://4umjwuju753t" path="res://game/monster.gd" id="1_4ygbb"]
+[ext_resource type="Texture2D" uid="uid://dlcuyuykpuufj" path="res://game/spriteTextures/EleanorGhostAttack_cropped.png" id="2_4ygbb"]
+[ext_resource type="Script" uid="uid://blcap2b8010iy" path="res://game/ai/idle_state.gd" id="3_8ou7p"]
+[ext_resource type="Texture2D" uid="uid://dx35xhr64fupq" path="res://game/spriteTextures/EleanorGhostScared_cropped.png" id="4_hxmpd"]
+[ext_resource type="Texture2D" uid="uid://basnr0l54452j" path="res://game/spriteTextures/EleanorGhostStanding_cropped.png" id="4_x8era"]
+[ext_resource type="Script" uid="uid://dq35auv166suh" path="res://game/ai/move_state.gd" id="6_nmkhp"]
+[ext_resource type="Script" uid="uid://uygej0aknc0f" path="res://game/ai/dying_state.gd" id="7_jg8wj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cgbqy"]
+radius = 1.0
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxn24"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.39215687)
+albedo_texture = ExtResource("4_x8era")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_oi33o"]
+size = Vector2(2, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x8era"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.39215687)
+albedo_texture = ExtResource("2_4ygbb")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_hxmpd"]
+size = Vector2(2, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2e4i"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.39215687)
+albedo_texture = ExtResource("4_hxmpd")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_nmkhp"]
+size = Vector2(2, 4)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oi33o"]
+radius = 10.0
+
+[node name="Monster" type="CharacterBody3D" unique_id=1268199021]
+script = ExtResource("1_4ygbb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1748273291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CapsuleShape3D_cgbqy")
+
+[node name="IdleSprite" type="MeshInstance3D" parent="." unique_id=1758795232]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_xxn24")
+mesh = SubResource("QuadMesh_oi33o")
+
+[node name="MoveSprite" type="MeshInstance3D" parent="." unique_id=1930925587]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_x8era")
+mesh = SubResource("QuadMesh_hxmpd")
+
+[node name="DyingSprite" type="MeshInstance3D" parent="." unique_id=2105701028]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_y2e4i")
+mesh = SubResource("QuadMesh_nmkhp")
+
+[node name="LimboHSM" type="LimboHSM" parent="." unique_id=563545805]
+
+[node name="IdleState" type="LimboState" parent="LimboHSM" unique_id=815661812]
+script = ExtResource("3_8ou7p")
+
+[node name="MoveState" type="LimboState" parent="LimboHSM" unique_id=625267724]
+script = ExtResource("6_nmkhp")
+
+[node name="DyingState" type="LimboState" parent="LimboHSM" unique_id=1571673934]
+script = ExtResource("7_jg8wj")
+
+[node name="AwarenessArea" type="Area3D" parent="." unique_id=975352586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AwarenessArea" unique_id=508868649]
+shape = SubResource("SphereShape3D_oi33o")

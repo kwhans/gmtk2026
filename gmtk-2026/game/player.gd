@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed = 5

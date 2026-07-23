@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://csujr6vysgpam" path="res://levels/wall.tscn" id="1_ll3ey"]
 [ext_resource type="Texture2D" uid="uid://cmn20nybuf0uo" path="res://levels/textures/Grass.png" id="1_rgp34"]
+[ext_resource type="PackedScene" uid="uid://8hvvyn2wr8yo" path="res://game/Monster.tscn" id="2_3vc1l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxk2p"]
 albedo_texture = ExtResource("1_rgp34")
@@ -25,6 +26,9 @@ mesh = SubResource("BoxMesh_aun6x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1676008567]
 shape = SubResource("BoxShape3D_oi33o")
+
+[node name="Monster" parent="StaticBody3D" unique_id=1268199021 instance=ExtResource("2_3vc1l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.361661, 1.5000038, 16.12172)
 
 [node name="Wall" parent="." unique_id=717200441 instance=ExtResource("1_ll3ey")]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 5, 0, 0)

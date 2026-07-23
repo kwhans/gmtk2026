@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
+SignalBus="*uid://ddpndtw5yj1ah"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 
