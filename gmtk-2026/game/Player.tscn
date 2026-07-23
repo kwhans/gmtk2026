@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b7xtvjvakjejx" path="res://game/player.gd" id="1_berb2"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_4r2ne"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_4r2ne"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oi33o"]
+
+[sub_resource type="Resource" id="Resource_08n30"]
+script = ExtResource("3_4r2ne")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_berb2"]
 radius = 1.5
@@ -20,17 +24,21 @@ shape = SubResource("CapsuleShape3D_oi33o")
 one_shot = true
 
 [node name="Head" type="Node3D" parent="." unique_id=127954903]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="PhantomCamera3D" type="Node3D" parent="Head" unique_id=1200833073 node_paths=PackedStringArray("follow_target")]
+[node name="PhantomCamera3D" type="Node3D" parent="Head" unique_id=1200833073]
 script = ExtResource("2_4r2ne")
 priority = 5
-follow_target = NodePath("..")
+tween_resource = SubResource("Resource_08n30")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="TorchOffset" type="Node3D" parent="Head" unique_id=552937758]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.93097603, 0.36508057, 0, -0.36508057, 0.93097603, 0, -0.8240037, -1.0328308)
+transform = Transform3D(1, 0, 0, 0, 0.93097603, 0.36508057, 0, -0.36508057, 0.93097603, 1, -1, -1)
+
+[node name="TorchAimRay" type="RayCast3D" parent="Head" unique_id=1877577119]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -50)
 
 [node name="wall bumper" type="CollisionShape3D" parent="." unique_id=1916231039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

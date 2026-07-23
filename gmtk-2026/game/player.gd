@@ -1,10 +1,11 @@
 extends CharacterBody3D
 class_name Player
 
-const horizontal_sway_speed = 0.125
-const vertical_sway_speed = 0.025
-const max_horizontal_distance = 0.5
-const max_vertical_distance = 0.15
+const HORIZONTAL_SWAY_SPEED = 0.3
+const VERTICAL_SWAY_SPEED = 0.2
+const MAX_HORIZONTAL_DISTANCE = 0.05
+const MAX_VERTICAL_DISTANCE = 0.05
+const THROW_SPEED = 20.0
 
 var motion_time = 0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -39,16 +40,16 @@ func _physics_process(delta):
 func _process(delta: float) -> void:
 	motion_time += delta
 	if is_instance_valid(heldTorch):
-		var offset_x = sin(motion_time*horizontal_sway_speed*TAU)*max_horizontal_distance
+		var offset_x = sin(motion_time*HORIZONTAL_SWAY_SPEED*TAU)*MAX_HORIZONTAL_DISTANCE
 		heldTorch.position.x = offset_x
-		var offset_y = sin(motion_time*vertical_sway_speed*TAU)*max_vertical_distance
+		var offset_y = sin(motion_time*VERTICAL_SWAY_SPEED*TAU)*MAX_VERTICAL_DISTANCE
 		heldTorch.position.y = offset_y
 	
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		$Head.rotation.x = clamp($Head.rotation.x + (-event.relative.y * mouse_sensitivity), -PI/2, PI/2)
-		print($Head.rotation.x)
+		#print($Head.rotation.x)
 	elif event is InputEventMouseButton:
 		if event.pressed:
 			throw_torch()
@@ -59,7 +60,16 @@ func throw_torch():
 		return
 	heldTorch.top_level = true
 	heldTorch.freeze = false
-	heldTorch.linear_velocity = $Head.global_basis.z * -10
+	
+	if %TorchAimRay.is_colliding():
+		print("Throwing with an aim point!")
+		var targetPoint = %TorchAimRay.get_collision_point()
+		var torch2TargetVec = targetPoint - heldTorch.global_position
+		var throwVelocity = torch2TargetVec.normalized() * THROW_SPEED
+		heldTorch.linear_velocity = throwVelocity
+	else:
+		print("Throwing without a target point.")
+		heldTorch.linear_velocity = $Head.global_basis.z * -THROW_SPEED
 	heldTorch.angular_velocity = $Head.global_basis.x * -10
 	heldTorch = null
 	$TorchReloadTimer.start()
