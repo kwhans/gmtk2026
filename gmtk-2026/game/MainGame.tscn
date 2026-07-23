@@ -24,6 +24,7 @@ script = ExtResource("1_q5fd3")
 
 [node name="MainCamera3D" type="Camera3D" parent="." unique_id=1112213491]
 transform = Transform3D(1, 0, 0, 0, 0.83425343, 0.55138123, 0, -0.55138123, 0.83425343, 0, 3.729929, 1.4018185)
+near = 1.0
 
 [node name="PhantomCameraHost" type="Node" parent="MainCamera3D" unique_id=2042073969]
 process_priority = 300
@@ -42,17 +43,20 @@ player_pcam = NodePath("PlayerPhantomCamera3D")
 [node name="SpringArm3D" type="SpringArm3D" parent="PlayerRoot" unique_id=778055522]
 
 [node name="PlayerPhantomCamera3D" type="Node3D" parent="PlayerRoot" unique_id=474255065 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70090926, 0, 3.4265008, 1.4018185)
+transform = Transform3D(1, 0, 0, 0, 0.70090926, 0.71325046, 0, -0.71325046, 0.70090926, 0, 3.9265008, 1.4018185)
 script = ExtResource("4_r4rta")
 follow_mode = 6
 follow_target = NodePath("..")
 tween_resource = SubResource("Resource_aeyhu")
-follow_offset = Vector3(0, 2, 0)
+follow_offset = Vector3(0, 2.5, 0)
 follow_distance = 2.0
 vertical_rotation_offset = 0.7941248096574199
 spring_length = 2.0
 shape = SubResource("SeparationRayShape3D_u3mfo")
 look_at_offset = Vector3(0, 2.5, 0)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1206180581]

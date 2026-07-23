@@ -19,7 +19,10 @@ albedo_texture = ExtResource("1_tkshc")
 emission_enabled = true
 emission = Color(0.8509804, 0.68235296, 0.09019608, 1)
 emission_energy_multiplier = 7.0
-billboard_mode = 1
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_338n8"]
 offsets = PackedFloat32Array(0, 0.58196723, 1)
@@ -33,7 +36,11 @@ lifetime_randomness = 0.31
 emission_shape_scale = Vector3(0.1, 0.1, 0.1)
 emission_shape = 1
 emission_sphere_radius = 1.0
+angle_min = 1.0728835e-05
+angle_max = 360.00003
 gravity = Vector3(0, 2.5, 0)
+scale_min = 0.5
+scale_max = 4.0
 color_ramp = SubResource("GradientTexture1D_dpj5p")
 
 [sub_resource type="QuadMesh" id="QuadMesh_aun6x"]
@@ -46,7 +53,10 @@ albedo_color = Color(0.14117648, 0.14117648, 0.14117648, 1)
 albedo_texture = ExtResource("2_nmy60")
 emission = Color(0.8509804, 0.68235296, 0.09019608, 1)
 emission_energy_multiplier = 7.0
-billboard_mode = 1
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="TorchRoot" type="Node3D" unique_id=630770646]
 
@@ -54,9 +64,11 @@ billboard_mode = 1
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 mesh = SubResource("CylinderMesh_nmy60")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="TorchStick" unique_id=2074781709]
+[node name="FireParticles" type="GPUParticles3D" parent="TorchStick" unique_id=2074781709]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.5503713, 0)
 material_override = SubResource("StandardMaterial3D_xxn24")
+transform_align = 1
+transform_align_channel_filter = 1
 process_material = SubResource("ParticleProcessMaterial_oi33o")
 draw_pass_1 = SubResource("QuadMesh_aun6x")
 
@@ -64,6 +76,8 @@ draw_pass_1 = SubResource("QuadMesh_aun6x")
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.5503713, 0)
 material_override = SubResource("StandardMaterial3D_338n8")
 lifetime = 1.5
+transform_align = 1
+transform_align_channel_filter = 1
 process_material = SubResource("ParticleProcessMaterial_oi33o")
 draw_pass_1 = SubResource("QuadMesh_aun6x")
 
