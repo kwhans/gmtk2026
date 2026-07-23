@@ -28,7 +28,13 @@ mesh = SubResource("BoxMesh_aun6x")
 shape = SubResource("BoxShape3D_oi33o")
 
 [node name="Monster" parent="StaticBody3D" unique_id=1268199021 instance=ExtResource("2_3vc1l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.361661, 1.5000038, 16.12172)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028625965, 1.5000038, 31.834957)
+
+[node name="Monster2" parent="StaticBody3D" unique_id=1305618147 instance=ExtResource("2_3vc1l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.468138, 1.5000038, 4.84198)
+
+[node name="Monster3" parent="StaticBody3D" unique_id=1094873255 instance=ExtResource("2_3vc1l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.95315, 1.5000038, 3.5500374)
 
 [node name="Wall" parent="." unique_id=717200441 instance=ExtResource("1_ll3ey")]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 5, 0, 0)

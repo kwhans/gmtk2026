@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dx35xhr64fupq" path="res://game/spriteTextures/EleanorGhostScared_cropped.png" id="4_hxmpd"]
 [ext_resource type="Texture2D" uid="uid://basnr0l54452j" path="res://game/spriteTextures/EleanorGhostStanding_cropped.png" id="4_x8era"]
 [ext_resource type="Script" uid="uid://dq35auv166suh" path="res://game/ai/move_state.gd" id="6_nmkhp"]
+[ext_resource type="Script" uid="uid://c40n77e8qf6t7" path="res://game/ai/attack_state.gd" id="7_hq6qu"]
 [ext_resource type="Script" uid="uid://uygej0aknc0f" path="res://game/ai/dying_state.gd" id="7_jg8wj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cgbqy"]
@@ -39,8 +40,9 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_nmkhp"]
 size = Vector2(2, 4)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_oi33o"]
-radius = 10.0
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cgbqy"]
+height = 6.0
+radius = 15.0
 
 [node name="Monster" type="CharacterBody3D" unique_id=1268199021]
 script = ExtResource("1_4ygbb")
@@ -73,12 +75,24 @@ script = ExtResource("3_8ou7p")
 
 [node name="MoveState" type="LimboState" parent="LimboHSM" unique_id=625267724]
 script = ExtResource("6_nmkhp")
+agression_range = 5.0
+
+[node name="AttackState" type="LimboState" parent="LimboHSM" unique_id=33711527]
+script = ExtResource("7_hq6qu")
 
 [node name="DyingState" type="LimboState" parent="LimboHSM" unique_id=1571673934]
 script = ExtResource("7_jg8wj")
 
 [node name="AwarenessArea" type="Area3D" parent="." unique_id=975352586]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AwarenessArea" unique_id=508868649]
-shape = SubResource("SphereShape3D_oi33o")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("CylinderShape3D_cgbqy")
+
+[node name="PlayerLosRay" type="RayCast3D" parent="." unique_id=677003757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+target_position = Vector3(0, 0, -30)
+
+[connection signal="body_entered" from="AwarenessArea" to="." method="_on_awareness_area_body_entered"]

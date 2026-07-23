@@ -7,6 +7,12 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var hsm:LimboHSM = $LimboHSM
 @onready var idle_state:LimboState = $LimboHSM/IdleState
 @onready var move_state:LimboState = $LimboHSM/MoveState
+@onready var attack_state:LimboState = $LimboHSM/AttackState
+@onready var dying_state:LimboState = $LimboHSM/DyingState
+
+@onready var playerLosRaycast:RayCast3D = $PlayerLosRay
+
+const EVENT_TORCHED:StringName = &"torched"
 
 enum MonsterAppearance
 {
@@ -29,24 +35,14 @@ func _physics_process(delta) -> void:
 	
 func init_state_machine() -> void:
 	hsm.add_transition(idle_state, move_state, idle_state.EVENT_FINISHED)
-	hsm.add_transition(move_state, idle_state, move_state.EVENT_FINISHED)
+	hsm.add_transition(move_state, attack_state, move_state.EVENT_FINISHED)
+	hsm.add_transition(hsm.ANYSTATE, dying_state, EVENT_TORCHED)
 	
+	hsm.initial_state = idle_state
 	hsm.initialize(self)
 	hsm.set_active(true)
 	
-func idle_ready():
-	pass
-
-func idle_update(delta):
-	pass
-	
-func move_ready():
-	pass
-
-func move_update(delta):
-	pass
-	
-func setAppearance(appearance:MonsterAppearance):
+func setAppearance(appearance:MonsterAppearance) -> void:
 	match appearance:
 		MonsterAppearance.Idle:
 			$IdleSprite.visible = true
@@ -60,3 +56,15 @@ func setAppearance(appearance:MonsterAppearance):
 			$IdleSprite.visible = false
 			$MoveSprite.visible = false
 			$DyingSprite.visible = true
+
+func _on_awareness_area_body_entered(body: Node3D) -> void:
+	hsm.dispatch($LimboHSM/IdleState.EVENT_FINISHED)
+
+func check_los(targetPlayer:Node3D) -> bool:
+	var directionToTarget = targetPlayer.global_position - global_position
+	playerLosRaycast.target_position = directionToTarget
+	# note that raycast is masked to only collide with environment
+	if playerLosRaycast.is_colliding():
+		return false
+	else:
+		return true

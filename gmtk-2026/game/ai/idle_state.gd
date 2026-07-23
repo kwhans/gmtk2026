@@ -1,15 +1,11 @@
 extends LimboState
 
-@onready var monster:Monster
+# Idle.  Just wait until we're told we're finished
 
-var playerInRange = false
+@onready var monster:Monster
 
 func _ready() -> void:
 	monster = owner as Monster
 
 func _enter() -> void:
 	monster.setAppearance(Monster.MonsterAppearance.Idle)
-	
-func _update(_delta: float) -> void:
-	if playerInRange:
-		dispatch(EVENT_FINISHED)
