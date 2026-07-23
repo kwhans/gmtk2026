@@ -11,8 +11,13 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed = 5
 var jump_speed = 5
 var mouse_sensitivity = 0.002
+var heldTorch : Torch
 
 @export var player_pcam: PhantomCamera3D = null
+
+func _ready():
+	#TODO - load the first torch dynamically and create a reloader
+	heldTorch = $TorchOffset/Torch
 
 func _physics_process(delta):
 	velocity.y += -gravity * delta
@@ -40,4 +45,15 @@ func _process(delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
-		
+	elif event is InputEventMouseButton:
+		if event.pressed:
+			throw_torch()
+
+func throw_torch():
+	if heldTorch == null:
+		push_warning("Attempted to throw non existant torch")
+		return
+	heldTorch.top_level = true
+	heldTorch.freeze = false
+	heldTorch.linear_velocity = transform.basis.z * -10
+	heldTorch = null

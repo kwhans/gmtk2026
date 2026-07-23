@@ -6,6 +6,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oi33o"]
 
 [node name="PlayerRoot" type="CharacterBody3D" unique_id=1995361594]
+collision_layer = 2
 script = ExtResource("1_berb2")
 
 [node name="TorchOffset" type="Node3D" parent="." unique_id=552937758]
@@ -17,3 +18,5 @@ transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=343661307]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_oi33o")
+
+[node name="TorchReloadTimer" type="Timer" parent="." unique_id=1079516921]
