@@ -1,22 +1,39 @@
 [gd_scene format=3 uid="uid://bgv08r1execxh"]
 
 [ext_resource type="Script" uid="uid://b7xtvjvakjejx" path="res://game/player.gd" id="1_berb2"]
-[ext_resource type="PackedScene" uid="uid://b6llacvqkdktw" path="res://game/Torch.tscn" id="1_qtduu"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_4r2ne"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oi33o"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_berb2"]
+radius = 1.5
 
 [node name="PlayerRoot" type="CharacterBody3D" unique_id=1995361594]
 collision_layer = 2
 script = ExtResource("1_berb2")
-
-[node name="TorchOffset" type="Node3D" parent="." unique_id=552937758]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Torch" parent="TorchOffset" unique_id=630770646 instance=ExtResource("1_qtduu")]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=343661307]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_oi33o")
 
 [node name="TorchReloadTimer" type="Timer" parent="." unique_id=1079516921]
+one_shot = true
+
+[node name="Head" type="Node3D" parent="." unique_id=127954903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="PhantomCamera3D" type="Node3D" parent="Head" unique_id=1200833073 node_paths=PackedStringArray("follow_target")]
+script = ExtResource("2_4r2ne")
+priority = 5
+follow_target = NodePath("..")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="TorchOffset" type="Node3D" parent="Head" unique_id=552937758]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.93097603, 0.36508057, 0, -0.36508057, 0.93097603, 0, -0.8240037, -1.0328308)
+
+[node name="wall bumper" type="CollisionShape3D" parent="." unique_id=1916231039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_berb2")
+
+[connection signal="timeout" from="TorchReloadTimer" to="." method="_on_torch_reload_timer_timeout"]

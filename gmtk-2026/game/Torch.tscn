@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bgq6cwld6lrj1" path="res://game/particleTextures/fire_02.png" id="1_tkshc"]
 [ext_resource type="Texture2D" uid="uid://ca467mho4plgx" path="res://game/particleTextures/smoke_07.png" id="2_nmy60"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_berb2"]
+bounce = 0.5
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nmy60"]
 albedo_color = Color(0.49019608, 0.23921569, 0.09411765, 1)
 
@@ -65,7 +68,10 @@ radius = 0.05
 
 [node name="TorchRoot" type="RigidBody3D" unique_id=630770646]
 collision_layer = 4
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_berb2")
 freeze = true
+angular_damp = 0.5
 script = ExtResource("1_338n8")
 
 [node name="TorchStick" type="MeshInstance3D" parent="." unique_id=1816915872]
