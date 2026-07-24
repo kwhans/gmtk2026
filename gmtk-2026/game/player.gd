@@ -64,6 +64,8 @@ func updateTorchPosition(delta:float) -> void:
 		heldTorch.position.y = offset_y
 	
 func _input(event):
+	if player_is_dead:
+		return
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		$Head.rotation.x = clamp($Head.rotation.x + (-event.relative.y * mouse_sensitivity), -PI/2, PI/2)
@@ -73,6 +75,8 @@ func _input(event):
 			throw_torch()
 
 func throw_torch():
+	if player_is_dead:
+		return
 	if heldTorch == null:
 		push_warning("Attempted to throw non existant torch")
 		return
@@ -119,4 +123,6 @@ func on_game_over() -> void:
 	
 func on_level_start(_levelNum) -> void:
 	player_is_dead = false
+	$TorchReloadTimer.start()
+	print("Player isn't dead anymore!")
 	

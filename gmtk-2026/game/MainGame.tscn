@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bgv08r1execxh" path="res://game/Player.tscn" id="3_q5fd3"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_r4rta"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_agtre"]
-[ext_resource type="PackedScene" uid="uid://ds01kjoetcb6t" path="res://levels/BurnableWall.tscn" id="7_r4rta"]
+[ext_resource type="PackedScene" uid="uid://bslsdr6t3gf2a" path="res://game/GameOverScreen.tscn" id="8_agtre"]
 
 [sub_resource type="Resource" id="Resource_aeyhu"]
 script = ExtResource("5_agtre")
@@ -29,7 +29,7 @@ script = ExtResource("1_q5fd3")
 
 [node name="MainCamera3D" type="Camera3D" parent="." unique_id=1112213491]
 physics_interpolation_mode = 1
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
 top_level = true
 near = 0.135
 
@@ -69,13 +69,19 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1206180581]
 environment = SubResource("Environment_oi33o")
 
-[node name="SkyPhantomCamera3D" type="Node3D" parent="." unique_id=251878876 node_paths=PackedStringArray("look_at_target")]
-transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 30, 0)
+[node name="SkyPhantomCamera3D" type="Node3D" parent="." unique_id=251878876 node_paths=PackedStringArray("follow_target", "look_at_target")]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
+top_level = true
 script = ExtResource("4_r4rta")
+follow_mode = 2
+follow_target = NodePath("../PlayerRoot")
 look_at_mode = 2
 look_at_target = NodePath("../PlayerRoot")
 tween_resource = SubResource("Resource_q5fd3")
+inactive_update_mode = 1
+follow_offset = Vector3(0, 30, 0)
 align_transform_with_view = Callable()
+align_position_with_view = Callable()
 align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
@@ -83,7 +89,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 wait_time = 5.0
 one_shot = true
 
-[node name="Wall" parent="." unique_id=717200441 instance=ExtResource("7_r4rta")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.537777, 0, 8.089804)
+[node name="GameOverScreen" parent="." unique_id=354790978 instance=ExtResource("8_agtre")]
+visible = false
 
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

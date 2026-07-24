@@ -59,7 +59,7 @@ color_ramp = SubResource("GradientTexture1D_dpj5p")
 
 [sub_resource type="QuadMesh" id="QuadMesh_daqnr"]
 
-[node name="Wall" type="Node3D" unique_id=717200441]
+[node name="BurnableWall" type="Node3D" unique_id=717200441]
 script = ExtResource("1_cnvxp")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=189737042]

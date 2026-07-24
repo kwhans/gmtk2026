@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://csujr6vysgpam" path="res://levels/wall.tscn" id="1_ll3ey"]
 [ext_resource type="Texture2D" uid="uid://cmn20nybuf0uo" path="res://levels/textures/Grass.png" id="1_rgp34"]
 [ext_resource type="PackedScene" uid="uid://8hvvyn2wr8yo" path="res://game/Monster.tscn" id="2_3vc1l"]
+[ext_resource type="PackedScene" uid="uid://ds01kjoetcb6t" path="res://levels/BurnableWall.tscn" id="4_qjjkf"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_aun6x"]
 vertices = PackedVector3Array(-49, 0.5, -3.25, -6.5, 0.5, -3.25, -6.5, 0.5, -5.25, -5.25, 0.5, -6.5, -3.25, 0.5, -6.5, -3.25, 0.5, -49, -49, 0.5, -49, 3.5, 0.5, -6.5, 3.5, 0.5, -49, 6.75, 0.5, -5.25, 6.75, 0.5, -3.75, 49, 0.5, -4, 5.5, 0.5, -6.5, 49, 0.5, -49, 6.75, 0.5, 13.75, 49, 0.5, 14, -49, 0.5, 13.5, -6.5, 0.5, 13.5, -3.25, 0.5, 13.5, 3.5, 0.5, 13.75, 3.5, 0.5, -3.25, -3.25, 0.5, -3.25, -5, 0.5, 49, -5, 0.5, 16.25, -5.75, 0.5, 16.25, -6.5, 0.5, 15.5, -49, 0.5, 49, -3.25, 0.5, 15.25, 3.5, 0.5, 15.5, 5, 0.5, 49, 5, 0.5, 16.25, 4.25, 0.5, 16.25, -4.25, 0.5, 16.25, 5.75, 0.5, 16.25, 6.75, 0.5, 15.25, 49, 0.5, 49)
@@ -45,6 +46,9 @@ gavinVariant = true
 [node name="Monster3" parent="StaticBody3D" unique_id=1094873255 instance=ExtResource("2_3vc1l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.95315, 1.5000038, 3.5500374)
 
+[node name="PlayerStartPosition" type="Node3D" parent="StaticBody3D" unique_id=657552089 groups=["StartPosition"]]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
 [node name="Wall" parent="." unique_id=717200441 instance=ExtResource("1_ll3ey")]
 transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 5, 0, 0)
 
@@ -59,3 +63,12 @@ transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, 
 
 [node name="Wall5" parent="." unique_id=1569176974 instance=ExtResource("1_ll3ey")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="BurnableWall" parent="." unique_id=966718262 instance=ExtResource("4_qjjkf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+
+[node name="BurnableWall2" parent="." unique_id=344779278 instance=ExtResource("4_qjjkf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 15)
+
+[node name="BurnableWall3" parent="." unique_id=2143550729 instance=ExtResource("4_qjjkf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 15)

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bslsdr6t3gf2a"]
+
+[ext_resource type="FontFile" uid="uid://h8mdn0tik33q" path="res://fonts/Ritaglio.ttf" id="1_66r3d"]
+[ext_resource type="Script" uid="uid://c3s1bci1nro51" path="res://game/retry_label.gd" id="2_b3dyr"]
+[ext_resource type="Script" uid="uid://dwsud08em5hfw" path="res://game/quit_label.gd" id="3_usicl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oi33o"]
+font = ExtResource("1_66r3d")
+font_size = 128
+font_color = Color(0.99, 1, 0.39999998, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aun6x"]
+font = ExtResource("1_66r3d")
+font_size = 64
+font_color = Color(1, 0.694, 0.32, 1)
+
+[node name="GameOverScreen" type="CanvasLayer" unique_id=92640633]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=877971314]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -244.5
+offset_top = -44.0
+offset_right = 244.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverLabel" type="Label" parent="VBoxContainer" unique_id=1593009820]
+layout_mode = 2
+text = "Lost in the Dark"
+label_settings = SubResource("LabelSettings_oi33o")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=265398428]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="RetryLabel" type="Label" parent="VBoxContainer" unique_id=1303958128]
+layout_mode = 2
+mouse_filter = 0
+text = "Pick up the torch again"
+label_settings = SubResource("LabelSettings_aun6x")
+horizontal_alignment = 1
+script = ExtResource("2_b3dyr")
+
+[node name="QuitLabel" type="Label" parent="VBoxContainer" unique_id=673866346]
+layout_mode = 2
+mouse_filter = 0
+text = "Give up"
+label_settings = SubResource("LabelSettings_aun6x")
+horizontal_alignment = 1
+script = ExtResource("3_usicl")
+
+[connection signal="mouse_entered" from="VBoxContainer/RetryLabel" to="VBoxContainer/RetryLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/RetryLabel" to="VBoxContainer/RetryLabel" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="VBoxContainer/QuitLabel" to="VBoxContainer/QuitLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/QuitLabel" to="VBoxContainer/QuitLabel" method="_on_mouse_exited"]

@@ -39,6 +39,7 @@ enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 Player="The player"
 Torches="The torches"
+StartPosition="Each level should have at least one"
 
 [input]
 
