@@ -4,6 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cmn20nybuf0uo" path="res://levels/textures/Grass.png" id="1_rgp34"]
 [ext_resource type="PackedScene" uid="uid://8hvvyn2wr8yo" path="res://game/Monster.tscn" id="2_3vc1l"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_aun6x"]
+vertices = PackedVector3Array(-49, 0.5, -3.25, -6.5, 0.5, -3.25, -6.5, 0.5, -5.25, -5.25, 0.5, -6.5, -3.25, 0.5, -6.5, -3.25, 0.5, -49, -49, 0.5, -49, 3.5, 0.5, -6.5, 3.5, 0.5, -49, 6.75, 0.5, -5.25, 6.75, 0.5, -3.75, 49, 0.5, -4, 5.5, 0.5, -6.5, 49, 0.5, -49, 6.75, 0.5, 13.75, 49, 0.5, 14, -49, 0.5, 13.5, -6.5, 0.5, 13.5, -3.25, 0.5, 13.5, 3.5, 0.5, 13.75, 3.5, 0.5, -3.25, -3.25, 0.5, -3.25, -5, 0.5, 49, -5, 0.5, 16.25, -5.75, 0.5, 16.25, -6.5, 0.5, 15.5, -49, 0.5, 49, -3.25, 0.5, 15.25, 3.5, 0.5, 15.5, 5, 0.5, 49, 5, 0.5, 16.25, 4.25, 0.5, 16.25, -4.25, 0.5, 16.25, 5.75, 0.5, 16.25, 6.75, 0.5, 15.25, 49, 0.5, 49)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 6), PackedInt32Array(3, 6, 5), PackedInt32Array(5, 8, 4), PackedInt32Array(4, 8, 7), PackedInt32Array(11, 10, 9), PackedInt32Array(12, 7, 8), PackedInt32Array(9, 12, 11), PackedInt32Array(11, 12, 13), PackedInt32Array(13, 12, 8), PackedInt32Array(10, 11, 14), PackedInt32Array(14, 11, 15), PackedInt32Array(0, 1, 16), PackedInt32Array(16, 1, 17), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(24, 23, 22), PackedInt32Array(24, 22, 25), PackedInt32Array(25, 22, 26), PackedInt32Array(25, 26, 16), PackedInt32Array(16, 17, 25), PackedInt32Array(28, 27, 19), PackedInt32Array(19, 27, 18), PackedInt32Array(31, 30, 29), PackedInt32Array(28, 31, 27), PackedInt32Array(27, 31, 32), PackedInt32Array(32, 31, 29), PackedInt32Array(32, 29, 22), PackedInt32Array(22, 23, 32), PackedInt32Array(29, 30, 33), PackedInt32Array(33, 34, 29), PackedInt32Array(29, 34, 35), PackedInt32Array(35, 34, 15), PackedInt32Array(34, 14, 15)]
+geometry_parsed_geometry_type = 1
+geometry_collision_mask = 4294901761
+agent_radius = 1.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxk2p"]
 albedo_texture = ExtResource("1_rgp34")
 uv1_scale = Vector3(0.1, 0.1, 0.1)
@@ -16,7 +23,8 @@ size = Vector3(100, 1, 100)
 [sub_resource type="BoxShape3D" id="BoxShape3D_oi33o"]
 size = Vector3(100, 1, 100)
 
-[node name="Node3D" type="Node3D" unique_id=1785221332]
+[node name="LevelRoot" type="NavigationRegion3D" unique_id=1882237966]
+navigation_mesh = SubResource("NavigationMesh_aun6x")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=345876005]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

@@ -76,8 +76,11 @@ throw={
 [layer_names]
 
 3d_physics/layer_1="Environment"
+3d_navigation/layer_1="Terrain"
 3d_physics/layer_2="Player Only"
+3d_navigation/layer_2="Items"
 3d_physics/layer_3="Torch"
+3d_navigation/layer_3="Actors"
 3d_physics/layer_4="Monster"
 
 [physics]

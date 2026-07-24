@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name Monster
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-@export var speed:float = 2.0
+@export var speed:float = 3.0
 
 @onready var hsm:LimboHSM = $LimboHSM
 @onready var idle_state:LimboState = $LimboHSM/IdleState
@@ -10,9 +10,12 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var attack_state:LimboState = $LimboHSM/AttackState
 @onready var dying_state:LimboState = $LimboHSM/DyingState
 
-@onready var playerLosRaycast:RayCast3D = $PlayerLosRay
+@onready var player_los_raycast:RayCast3D = $PlayerLosRay
+@onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 
 const EVENT_TORCHED:StringName = &"torched"
+
+var move_direction: Vector3 = Vector3.ZERO
 
 enum MonsterAppearance
 {
@@ -26,6 +29,11 @@ func _ready() -> void:
 	
 func _physics_process(delta) -> void:
 	velocity.y += -gravity * delta
+	
+	var pathDirection = move_direction
+	velocity.x = pathDirection.x * speed
+	velocity.z = pathDirection.z * speed
+	
 	#var input = Input.get_vector("left", "right", "forward", "back")
 	#var movement_dir = transform.basis * Vector3(input.x, 0, input.y)
 	#velocity.x = movement_dir.x * speed
@@ -36,6 +44,7 @@ func _physics_process(delta) -> void:
 func init_state_machine() -> void:
 	hsm.add_transition(idle_state, move_state, idle_state.EVENT_FINISHED)
 	hsm.add_transition(move_state, attack_state, move_state.EVENT_FINISHED)
+	hsm.add_transition(attack_state, move_state, attack_state.EVENT_FINISHED)
 	hsm.add_transition(hsm.ANYSTATE, dying_state, EVENT_TORCHED)
 	
 	hsm.initial_state = idle_state
@@ -84,13 +93,21 @@ func _on_awareness_area_body_entered(_body: Node3D) -> void:
 
 func check_los(targetPlayer:Node3D) -> bool:
 	var directionToTarget = targetPlayer.global_position - global_position
-	playerLosRaycast.target_position = directionToTarget
+	player_los_raycast.target_position = directionToTarget
 	# note that raycast is masked to only collide with environment
-	if playerLosRaycast.is_colliding():
+	if player_los_raycast.is_colliding():
 		return false
 	else:
 		return true
 
+func update_path_target(targetPlayer:Node3D) -> void:
+	navigation_agent_3d.target_position = targetPlayer.global_position
+
+func get_next_waypoint() -> Vector3:
+	return navigation_agent_3d.get_next_path_position()
+	
+func set_path_direction(direction:Vector3) -> void:
+	move_direction = direction
 
 func _on_hit_box_body_entered(body: Node3D) -> void:
 	if body.is_in_group(&"Player"):

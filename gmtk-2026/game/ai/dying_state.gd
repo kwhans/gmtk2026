@@ -11,3 +11,4 @@ func _enter() -> void:
 	SignalBus.torched_a_ghost.emit()
 	monster.setAppearance(Monster.MonsterAppearance.Dying)
 	monster.beginFadeOut(fadeTime)
+	monster.set_path_direction(Vector3.ZERO)
