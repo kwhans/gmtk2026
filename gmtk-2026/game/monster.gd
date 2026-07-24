@@ -48,16 +48,38 @@ func setAppearance(appearance:MonsterAppearance) -> void:
 			$IdleSprite.visible = true
 			$MoveSprite.visible = false
 			$DyingSprite.visible = false
+			$FirePfx.emitting = false
 		MonsterAppearance.Attacking:
 			$IdleSprite.visible = false
 			$MoveSprite.visible = true
 			$DyingSprite.visible = false
+			$FirePfx.emitting = false
 		MonsterAppearance.Dying:
 			$IdleSprite.visible = false
 			$MoveSprite.visible = false
 			$DyingSprite.visible = true
+			$FirePfx.emitting = true
+			
+func beginFadeOut(duration:float) -> void:
+	# Prevent player from dying to a dying ghost
+	$HitBox.set_deferred("monitoring", false)
+	
+	# Create a new Tween instance
+	var tween = create_tween()
+	
+	# Animate the modulate property to transparent (alpha 0.0)
+	tween.tween_property(
+		$DyingSprite, 
+		"transparency", 
+		1.0,
+		duration
+	)
+	
+	tween.tween_callback(self.queue_free)
+	# Start the tween (auto-starts in Godot 4, but explicit is clear)
+	tween.play()
 
-func _on_awareness_area_body_entered(body: Node3D) -> void:
+func _on_awareness_area_body_entered(_body: Node3D) -> void:
 	hsm.dispatch($LimboHSM/IdleState.EVENT_FINISHED)
 
 func check_los(targetPlayer:Node3D) -> bool:
@@ -68,3 +90,12 @@ func check_los(targetPlayer:Node3D) -> bool:
 		return false
 	else:
 		return true
+
+
+func _on_hit_box_body_entered(body: Node3D) -> void:
+	if body.is_in_group(&"Player"):
+		print("Game Over")
+		SignalBus.game_over.emit()
+	elif body.is_in_group(&"Torches"):
+		print("I've been torched!")
+		hsm.dispatch(EVENT_TORCHED)

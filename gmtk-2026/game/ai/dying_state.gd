@@ -2,14 +2,12 @@ extends LimboState
 
 @onready var monster:Monster
 
-var playerInRange = false
+@export var fadeTime:float = 2.0
 
 func _ready() -> void:
 	monster = owner as Monster
 
 func _enter() -> void:
+	SignalBus.torched_a_ghost.emit()
 	monster.setAppearance(Monster.MonsterAppearance.Dying)
-	
-func _update(_delta: float) -> void:
-	if playerInRange:
-		dispatch(EVENT_FINISHED)
+	monster.beginFadeOut(fadeTime)

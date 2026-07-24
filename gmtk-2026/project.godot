@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 [global_group]
 
 Player="The player"
+Torches="The torches"
 
 [input]
 
@@ -77,6 +78,7 @@ throw={
 3d_physics/layer_1="Environment"
 3d_physics/layer_2="Player Only"
 3d_physics/layer_3="Torch"
+3d_physics/layer_4="Monster"
 
 [physics]
 
