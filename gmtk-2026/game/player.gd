@@ -71,6 +71,7 @@ func throw_torch():
 		print("Throwing without a target point.")
 		heldTorch.linear_velocity = $Head.global_basis.z * -THROW_SPEED
 	heldTorch.angular_velocity = $Head.global_basis.x * -10
+	heldTorch.enableCollisions()
 	heldTorch = null
 	$TorchReloadTimer.start()
 
