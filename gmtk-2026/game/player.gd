@@ -28,6 +28,7 @@ func _ready():
 	spawn_torch()
 	SignalBus.level_start.connect(on_level_start)
 	SignalBus.game_over.connect(on_game_over)
+	SignalBus.torch_lost.connect(torch_burnt_out)
 	
 func _physics_process(delta):
 	velocity.y += -gravity * delta
@@ -83,6 +84,9 @@ func throw_torch():
 	heldTorch.top_level = true
 	heldTorch.freeze = false
 	
+
+		
+
 	var distanceToTarget = 40.0
 	const DISTANCE_AIM_FACTOR = 0.5
 	if %TorchAimRay.is_colliding():
@@ -107,6 +111,10 @@ func throw_torch():
 
 
 func _on_torch_reload_timer_timeout() -> void:
+	spawn_torch()
+
+func torch_burnt_out():
+	heldTorch=null
 	spawn_torch()
 
 func spawn_torch():

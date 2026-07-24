@@ -105,3 +105,9 @@ omni_range = 60.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=760401658]
 shape = SubResource("CylinderShape3D_dta0a")
 disabled = true
+
+[node name="BurnoutTimer" type="Timer" parent="." unique_id=1420075691]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="BurnoutTimer" to="." method="_on_burnout_timer_timeout"]
