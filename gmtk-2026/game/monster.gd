@@ -105,16 +105,18 @@ func beginFadeOut(duration:float) -> void:
 	# Start the tween (auto-starts in Godot 4, but explicit is clear)
 	tween.play()
 
-func _on_awareness_area_body_entered(_body: Node3D) -> void:
-	hsm.dispatch($LimboHSM/IdleState.EVENT_FINISHED)
-
-func check_los(targetPlayer:Node3D) -> bool:
+func check_los_clear(targetPlayer:Node3D) -> bool:
+	if not is_instance_valid(targetPlayer):
+		return false
 	var directionToTarget = targetPlayer.global_position - global_position
 	player_los_raycast.target_position = directionToTarget
 	# note that raycast is masked to only collide with environment
 	if player_los_raycast.is_colliding():
+		#var collider = player_los_raycast.get_collider()
+		#print("LOS check collides with", collider)
 		return false
 	else:
+		#print("LOS check didn't collide with anything")
 		return true
 
 func update_path_target(targetPlayer:Node3D) -> void:

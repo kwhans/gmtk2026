@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_4r2ne"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oi33o"]
+height = 3.0
 
 [sub_resource type="Resource" id="Resource_08n30"]
 script = ExtResource("3_4r2ne")
@@ -17,14 +18,14 @@ collision_layer = 2
 script = ExtResource("1_berb2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=343661307]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_oi33o")
 
 [node name="TorchReloadTimer" type="Timer" parent="." unique_id=1079516921]
 one_shot = true
 
 [node name="Head" type="Node3D" parent="." unique_id=127954903]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="PhantomCamera3D" type="Node3D" parent="Head" unique_id=1200833073]
 script = ExtResource("2_4r2ne")

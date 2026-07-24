@@ -40,7 +40,7 @@ func _update(delta: float) -> void:
 	monster.set_path_direction(direction)
 	
 	# check for LOS to player
-	var targetInLos = monster.check_los(targetPlayer)
+	var targetInLos = monster.check_los_clear(targetPlayer)
 	if targetInLos:
 		# check for range to player
 		var distanceToPlayer = (targetPlayer.global_position - monster.global_position).length()

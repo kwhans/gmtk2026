@@ -25,7 +25,7 @@ func _update(delta: float) -> void:
 			return
 			
 	# check for LOS to player
-	var targetInLos = monster.check_los(targetPlayer)
+	var targetInLos = monster.check_los_clear(targetPlayer)
 	if targetInLos:
 		var playerDirection = targetPlayer.global_position - monster.global_position
 		monster.set_path_direction(playerDirection.normalized())

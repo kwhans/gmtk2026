@@ -22,6 +22,8 @@ const torchScene := preload("res://game/Torch.tscn")
 
 @export var player_pcam: PhantomCamera3D = null
 
+@onready var torch_aim_ray: RayCast3D = %TorchAimRay
+
 func _ready():
 	spawn_torch()
 	SignalBus.level_start.connect(on_level_start)
@@ -38,6 +40,11 @@ func _physics_process(delta):
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_speed
 
+	# check for falling off the map
+	if global_position.y < -50.0:
+		# TODO trigger a falling/screaming/cruching noise when this is first triggered
+		SignalBus.game_over.emit()
+		
 	# update camera position
 	#if is_instance_valid(player_pcam):
 		#player_pcam.set_third_person_rotation(rotation)
@@ -72,15 +79,23 @@ func throw_torch():
 	heldTorch.top_level = true
 	heldTorch.freeze = false
 	
+	var distanceToTarget = 40.0
+	const DISTANCE_AIM_FACTOR = 0.5
 	if %TorchAimRay.is_colliding():
 		print("Throwing with an aim point!")
 		var targetPoint = %TorchAimRay.get_collision_point()
 		var torch2TargetVec = targetPoint - heldTorch.global_position
+		distanceToTarget = torch2TargetVec.length()
+		var distanceAimAdjustment = DISTANCE_AIM_FACTOR * distanceToTarget
+		torch2TargetVec.y += distanceAimAdjustment
 		var throwVelocity = torch2TargetVec.normalized() * THROW_SPEED
 		heldTorch.linear_velocity = throwVelocity
 	else:
 		print("Throwing without a target point.")
-		heldTorch.linear_velocity = $Head.global_basis.z * -THROW_SPEED
+		var global_throw_vector = torch_aim_ray.global_basis * torch_aim_ray.target_position  
+		var distanceAimAdjustment = DISTANCE_AIM_FACTOR * distanceToTarget
+		global_throw_vector.y += distanceAimAdjustment
+		heldTorch.linear_velocity = global_throw_vector.normalized() * THROW_SPEED
 	heldTorch.angular_velocity = $Head.global_basis.x * -10
 	heldTorch.enableCollisions()
 	heldTorch = null
