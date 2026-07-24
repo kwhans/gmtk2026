@@ -18,6 +18,7 @@ size = Vector3(10, 10, 1)
 [node name="Wall" type="Node3D" unique_id=717200441]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=189737042]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=864562185]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)

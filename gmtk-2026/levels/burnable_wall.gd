@@ -9,8 +9,7 @@ func start_burning():
 	$FirePfx.emitting = true
 	$BurnTime.start()
 
-
-
-
 func _on_burn_time_timeout() -> void:
-		queue_free()
+	$StaticBody3D.collision_layer = 0
+	SignalBus.wall_removed.emit()
+	queue_free()

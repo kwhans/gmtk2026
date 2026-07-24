@@ -21,6 +21,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 const EVENT_TORCHED:StringName = &"torched"
 
 var move_direction: Vector3 = Vector3.ZERO
+var path_target_node:Node3D = null
 
 enum MonsterAppearance
 {
@@ -37,21 +38,28 @@ func _ready() -> void:
 		glow_eyes_sprite = $GlowEyesSprite2
 		
 	init_state_machine()
+	navigation_agent_3d.velocity_computed.connect(on_safe_velocity_computed)
 	
 func _physics_process(delta) -> void:
-	velocity.y += -gravity * delta
+	var new_velocity:Vector3 = velocity
+	new_velocity.y += -gravity * delta
 	
 	var pathDirection = move_direction
-	velocity.x = pathDirection.x * speed
-	velocity.z = pathDirection.z * speed
+	new_velocity.x = pathDirection.x * speed
+	new_velocity.z = pathDirection.z * speed
 	
-	#var input = Input.get_vector("left", "right", "forward", "back")
-	#var movement_dir = transform.basis * Vector3(input.x, 0, input.y)
-	#velocity.x = movement_dir.x * speed
-	#velocity.z = movement_dir.z * speed
+	# Pass desired velocity to the agent for avoidance calculation
+	if navigation_agent_3d.avoidance_enabled:
+		navigation_agent_3d.set_velocity(new_velocity)
+	else:
+		on_safe_velocity_computed(new_velocity)
 
+func on_safe_velocity_computed(safe_velocity: Vector3):
+	#var velDiff = safe_velocity - velocity
+	#print("safe_velocity difference = ", velDiff)
+	velocity = safe_velocity
 	move_and_slide()
-	
+
 func init_state_machine() -> void:
 	hsm.add_transition(idle_state, move_state, idle_state.EVENT_FINISHED)
 	hsm.add_transition(move_state, attack_state, move_state.EVENT_FINISHED)
@@ -120,6 +128,9 @@ func check_los_clear(targetPlayer:Node3D) -> bool:
 		return true
 
 func update_path_target(targetPlayer:Node3D) -> void:
+	path_target_node = targetPlayer
+	if targetPlayer == null:
+		return
 	navigation_agent_3d.target_position = targetPlayer.global_position
 
 func get_next_waypoint() -> Vector3:

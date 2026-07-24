@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://br8lpoiiuldg6"]
 
+[ext_resource type="Script" uid="uid://bwcxjtcxqr26t" path="res://levels/maze.gd" id="1_4w8hf"]
 [ext_resource type="PackedScene" uid="uid://csujr6vysgpam" path="res://levels/wall.tscn" id="1_ll3ey"]
 [ext_resource type="Texture2D" uid="uid://cmn20nybuf0uo" path="res://levels/textures/Grass.png" id="1_rgp34"]
 [ext_resource type="PackedScene" uid="uid://8hvvyn2wr8yo" path="res://game/Monster.tscn" id="2_3vc1l"]
@@ -9,7 +10,7 @@
 vertices = PackedVector3Array(-48.5, 0.5, -3, -7, 0.5, -2.5, -7, 0.5, -5.5, -5.5, 0.5, -7, -2.5, 0.5, -7, -3, 0.5, -48.5, -48.5, 0.5, -48.5, 3, 0.5, -7, 3.5, 0.5, -48.5, 7.5, 0.5, -5.5, 7.5, 0.5, 13, 16, 0.5, 13, 17, 0.5, 15, 48.5, 0.5, 15, 48.5, 0.5, -48.5, 6, 0.5, -7, -15.5, 0.5, 13, -7, 0.5, 13, -48.5, 0.5, 15, -16.5, 0.5, 15, 5, 0.5, 28, 5.5, 0.5, 17.5, 3, 0.5, 16, -2.5, 0.5, 15.5, -5.5, 0.5, 17.5, -5, 0.5, 28, 3, 0.5, -2.5, -2.5, 0.5, -2.5, -6.5, 0.5, 29, -15.5, 0.5, 17.5, -1.5, 0.5, 48.5, -6.5, 0.5, 31.5, -48.5, 0.5, 48.5, -1.5, 0.5, 32.5, -5.5, 0.5, 32.5, 7, 0.5, 29, 15.5, 0.5, 17.5, 7, 0.5, 31, 48.5, 0.5, 48.5, 5.5, 0.5, 32.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 6), PackedInt32Array(3, 6, 5), PackedInt32Array(4, 5, 7), PackedInt32Array(7, 5, 8), PackedInt32Array(11, 10, 9), PackedInt32Array(11, 9, 12), PackedInt32Array(12, 9, 13), PackedInt32Array(13, 9, 8), PackedInt32Array(13, 8, 14), PackedInt32Array(15, 7, 8), PackedInt32Array(9, 15, 8), PackedInt32Array(1, 17, 16), PackedInt32Array(16, 19, 18), PackedInt32Array(18, 0, 16), PackedInt32Array(16, 0, 1), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(24, 21, 20), PackedInt32Array(24, 20, 25), PackedInt32Array(27, 26, 23), PackedInt32Array(23, 26, 22), PackedInt32Array(25, 28, 24), PackedInt32Array(24, 28, 29), PackedInt32Array(31, 30, 29), PackedInt32Array(29, 30, 18), PackedInt32Array(18, 30, 32), PackedInt32Array(34, 33, 30), PackedInt32Array(29, 28, 31), PackedInt32Array(31, 34, 30), PackedInt32Array(18, 19, 29), PackedInt32Array(20, 21, 35), PackedInt32Array(35, 21, 36), PackedInt32Array(37, 36, 30), PackedInt32Array(30, 36, 13), PackedInt32Array(30, 13, 38), PackedInt32Array(37, 35, 36), PackedInt32Array(30, 33, 39), PackedInt32Array(30, 39, 37), PackedInt32Array(13, 36, 12)]
 geometry_parsed_geometry_type = 1
-geometry_collision_mask = 4294901761
+geometry_collision_mask = 4294901777
 cell_size = 0.5
 border_size = 1.0
 agent_height = 3.0
@@ -29,6 +30,7 @@ size = Vector3(100, 1, 100)
 
 [node name="LevelRoot" type="NavigationRegion3D" unique_id=1882237966]
 navigation_mesh = SubResource("NavigationMesh_aun6x")
+script = ExtResource("1_4w8hf")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=345876005]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
