@@ -12,7 +12,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed = 5
 var jump_speed = 5
 var mouse_sensitivity = 0.002
-var heldTorch : Torch
+var heldTorch : Torch = null
+const PULL_OUT_TORCH_TIME: float = 1.0
+var pull_out_torch_time_remaining = 0.0
+const PULL_OUT_TORCH_DISTANCE: float = 1.5
+var player_is_dead:bool = false
 
 const torchScene := preload("res://game/Torch.tscn")
 
@@ -20,11 +24,13 @@ const torchScene := preload("res://game/Torch.tscn")
 
 func _ready():
 	spawn_torch()
-
+	SignalBus.level_start.connect(on_level_start)
+	SignalBus.game_over.connect(on_game_over)
+	
 func _physics_process(delta):
 	velocity.y += -gravity * delta
 	var input = Input.get_vector("left", "right", "forward", "back")
-	var movement_dir = transform.basis * Vector3(input.x, 0, input.y)
+	var movement_dir = transform.basis * Vector3(input.x, 0, input.y) if not player_is_dead else Vector3.ZERO
 	velocity.x = movement_dir.x * speed
 	velocity.z = movement_dir.z * speed
 	
@@ -36,13 +42,18 @@ func _physics_process(delta):
 	#if is_instance_valid(player_pcam):
 		#player_pcam.set_third_person_rotation(rotation)
 
-	# torch sway
 func _process(delta: float) -> void:
+	updateTorchPosition(delta)
+	
+func updateTorchPosition(delta:float) -> void:
 	motion_time += delta
 	if is_instance_valid(heldTorch):
 		var offset_x = sin(motion_time*HORIZONTAL_SWAY_SPEED*TAU)*MAX_HORIZONTAL_DISTANCE
 		heldTorch.position.x = offset_x
-		var offset_y = sin(motion_time*VERTICAL_SWAY_SPEED*TAU)*MAX_VERTICAL_DISTANCE
+		var mainYOffset = sin(motion_time*VERTICAL_SWAY_SPEED*TAU)*MAX_VERTICAL_DISTANCE
+		pull_out_torch_time_remaining = max(pull_out_torch_time_remaining-delta, 0.0)
+		var pullOutOffset = PULL_OUT_TORCH_DISTANCE * (pull_out_torch_time_remaining / PULL_OUT_TORCH_TIME)
+		var offset_y = mainYOffset - pullOutOffset
 		heldTorch.position.y = offset_y
 	
 func _input(event):
@@ -83,7 +94,14 @@ func spawn_torch():
 	if heldTorch != null:
 		push_warning("Attempted to load torch when one was already held")
 		return
+	pull_out_torch_time_remaining = PULL_OUT_TORCH_TIME
 	heldTorch = torchScene.instantiate()
+	updateTorchPosition(0.0)
 	%TorchOffset.add_child(heldTorch)
 	
+func on_game_over() -> void:
+	player_is_dead = true
+	
+func on_level_start(_levelNum) -> void:
+	player_is_dead = false
 	

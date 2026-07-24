@@ -130,6 +130,7 @@ func _on_hit_box_body_entered(body: Node3D) -> void:
 	if body.is_in_group(&"Player"):
 		print("Game Over")
 		SignalBus.game_over.emit()
+		queue_free() # my work here is done
 	elif body.is_in_group(&"Torches"):
 		print("I've been torched!")
 		hsm.dispatch(EVENT_TORCHED)
