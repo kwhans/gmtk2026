@@ -3,6 +3,11 @@ class_name Monster
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var speed:float = 3.0
+@export var gavinVariant:bool = false
+@onready var idle_sprite: MeshInstance3D = $IdleSprite
+@onready var move_sprite: MeshInstance3D = $MoveSprite
+@onready var dying_sprite: MeshInstance3D = $DyingSprite
+@onready var glow_eyes_sprite: MeshInstance3D = $GlowEyesSprite
 
 @onready var hsm:LimboHSM = $LimboHSM
 @onready var idle_state:LimboState = $LimboHSM/IdleState
@@ -25,6 +30,12 @@ enum MonsterAppearance
 }
 
 func _ready() -> void:
+	if gavinVariant:
+		idle_sprite = $IdleSprite2
+		move_sprite = $MoveSprite2
+		dying_sprite = $DyingSprite2
+		glow_eyes_sprite = $GlowEyesSprite2
+		
 	init_state_machine()
 	
 func _physics_process(delta) -> void:
@@ -54,19 +65,25 @@ func init_state_machine() -> void:
 func setAppearance(appearance:MonsterAppearance) -> void:
 	match appearance:
 		MonsterAppearance.Idle:
-			$IdleSprite.visible = true
-			$MoveSprite.visible = false
-			$DyingSprite.visible = false
+			idle_sprite.visible = true
+			move_sprite.visible = false
+			dying_sprite.visible = false
+			glow_eyes_sprite.material_override.emission = Color(1.0, 1.0, 0.388, 1.0) if gavinVariant else Color(0.0, 1.0, 0.596, 1.0)
+			glow_eyes_sprite.visible = true
 			$FirePfx.emitting = false
 		MonsterAppearance.Attacking:
-			$IdleSprite.visible = false
-			$MoveSprite.visible = true
-			$DyingSprite.visible = false
+			idle_sprite.visible = false
+			move_sprite.visible = true
+			dying_sprite.visible = false
+			glow_eyes_sprite.material_override.emission = Color(1.0, 0.0, 0.0, 1.0)
+			glow_eyes_sprite.visible = true
 			$FirePfx.emitting = false
 		MonsterAppearance.Dying:
-			$IdleSprite.visible = false
-			$MoveSprite.visible = false
-			$DyingSprite.visible = true
+			idle_sprite.visible = false
+			move_sprite.visible = false
+			dying_sprite.visible = true
+			#glow_eyes_sprite.material_override.emission = Color(0.0, 0.0, 0.0, 1.0) if gavinVariant else Color(1.0, 1.0, 1.0, 1.0)
+			glow_eyes_sprite.visible = false
 			$FirePfx.emitting = true
 			
 func beginFadeOut(duration:float) -> void:
