@@ -54,6 +54,7 @@ func loadLevel(levelNum:int) -> void:
 	if newLevelScene == null:
 		return
 		
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	currentLevel = levelNum
 	
 	# Remove current level
