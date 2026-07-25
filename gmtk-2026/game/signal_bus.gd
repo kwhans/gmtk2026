@@ -17,6 +17,3 @@ signal return_to_main_menu
 
 @warning_ignore("unused_signal")
 signal retry_level
-
-@warning_ignore("unused_signal")
-signal torch_lost

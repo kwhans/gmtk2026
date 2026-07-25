@@ -23,12 +23,12 @@ const torchScene := preload("res://game/Torch.tscn")
 @export var player_pcam: PhantomCamera3D = null
 
 @onready var torch_aim_ray: RayCast3D = %TorchAimRay
+@onready var torch_reload_timer: Timer = $TorchReloadTimer
 
 func _ready():
 	spawn_torch()
 	SignalBus.level_start.connect(on_level_start)
 	SignalBus.game_over.connect(on_game_over)
-	SignalBus.torch_lost.connect(torch_burnt_out)
 	
 func _physics_process(delta):
 	velocity.y += -gravity * delta
@@ -52,6 +52,7 @@ func _physics_process(delta):
 
 func _process(delta: float) -> void:
 	updateTorchPosition(delta)
+	checkForBurnedOutTorch()
 	
 func updateTorchPosition(delta:float) -> void:
 	motion_time += delta
@@ -63,6 +64,11 @@ func updateTorchPosition(delta:float) -> void:
 		var pullOutOffset = PULL_OUT_TORCH_DISTANCE * (pull_out_torch_time_remaining / PULL_OUT_TORCH_TIME)
 		var offset_y = mainYOffset - pullOutOffset
 		heldTorch.position.y = offset_y
+
+func checkForBurnedOutTorch() -> void:
+	if not is_instance_valid(heldTorch):
+		if torch_reload_timer.is_stopped():
+			torch_reload_timer.start()
 	
 func _input(event):
 	if player_is_dead:
@@ -107,7 +113,8 @@ func throw_torch():
 	heldTorch.angular_velocity = $Head.global_basis.x * -10
 	heldTorch.enableCollisions()
 	heldTorch = null
-	$TorchReloadTimer.start()
+	if torch_reload_timer.is_stopped():
+		torch_reload_timer.start()
 
 
 func _on_torch_reload_timer_timeout() -> void:
@@ -115,7 +122,8 @@ func _on_torch_reload_timer_timeout() -> void:
 
 func torch_burnt_out():
 	heldTorch=null
-	spawn_torch()
+	if torch_reload_timer.is_stopped():
+		torch_reload_timer.start()
 
 func spawn_torch():
 	if heldTorch != null:
@@ -131,6 +139,7 @@ func on_game_over() -> void:
 	
 func on_level_start(_levelNum) -> void:
 	player_is_dead = false
-	$TorchReloadTimer.start()
+	if torch_reload_timer.is_stopped():
+		torch_reload_timer.start()
 	print("Player isn't dead anymore!")
 	

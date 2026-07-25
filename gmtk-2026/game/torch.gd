@@ -13,5 +13,4 @@ func begin_burnout():
 func _on_burnout_timer_timeout() -> void:
 	$TorchStick/FireParticles.emitting = false
 	$TorchStick/SmokeParticles.emitting = false
-	SignalBus.torch_lost.emit()
 	queue_free()
