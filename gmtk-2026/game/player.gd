@@ -17,6 +17,7 @@ const PULL_OUT_TORCH_TIME: float = 1.0
 var pull_out_torch_time_remaining = 0.0
 const PULL_OUT_TORCH_DISTANCE: float = 1.5
 var player_is_dead:bool = false
+var out_of_torches:bool = false
 
 const torchScene := preload("res://game/Torch.tscn")
 
@@ -67,7 +68,8 @@ func updateTorchPosition(delta:float) -> void:
 
 func checkForBurnedOutTorch() -> void:
 	if not is_instance_valid(heldTorch):
-		if torch_reload_timer.is_stopped():
+		if torch_reload_timer.is_stopped() and not out_of_torches:
+			SignalBus.torch_thrown.emit() # more like "thrown away" in this case...
 			torch_reload_timer.start()
 	
 func _input(event):
@@ -90,9 +92,6 @@ func throw_torch():
 	heldTorch.top_level = true
 	heldTorch.freeze = false
 	
-
-		
-
 	var distanceToTarget = 40.0
 	const DISTANCE_AIM_FACTOR = 0.5
 	if %TorchAimRay.is_colliding():
@@ -113,21 +112,18 @@ func throw_torch():
 	heldTorch.angular_velocity = $Head.global_basis.x * -10
 	heldTorch.enableCollisions()
 	heldTorch = null
+	SignalBus.torch_thrown.emit()
 	if torch_reload_timer.is_stopped():
 		torch_reload_timer.start()
-
 
 func _on_torch_reload_timer_timeout() -> void:
 	spawn_torch()
 
-func torch_burnt_out():
-	heldTorch=null
-	if torch_reload_timer.is_stopped():
-		torch_reload_timer.start()
-
 func spawn_torch():
 	if heldTorch != null:
 		push_warning("Attempted to load torch when one was already held")
+		return
+	if out_of_torches:
 		return
 	pull_out_torch_time_remaining = PULL_OUT_TORCH_TIME
 	heldTorch = torchScene.instantiate()
@@ -139,6 +135,7 @@ func on_game_over() -> void:
 	
 func on_level_start(_levelNum) -> void:
 	player_is_dead = false
+	out_of_torches = false
 	if torch_reload_timer.is_stopped():
 		torch_reload_timer.start()
 	print("Player isn't dead anymore!")

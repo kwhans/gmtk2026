@@ -5,21 +5,28 @@ extends Node3D
 @onready var game_over_timer: Timer = $GameOverTimer
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
 @onready var level_stub: Node3D = $LevelStub
+@onready var torch_count_label: Label = $HUD/MarginContainer/HBoxContainer/TorchCountLabel
 
 
-var is_game_over:bool = false
-var currentLevel = 1
+var is_game_over: bool = false
+var currentLevel: int = 1
+var torches_remaining: int = 3
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	SignalBus.game_over.connect(on_game_over)
 	SignalBus.retry_level.connect(on_retry_level)
 	SignalBus.return_to_main_menu.connect(on_return_to_main_menu)
+	SignalBus.load_torches.connect(on_load_torches)
+	SignalBus.torch_thrown.connect(on_torch_thrown)
 	loadLevel(GlobalGameState.starting_level)
 	
 func _unhandled_input(event):
+	print("Encountered unhandled input")
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		print("Considering re-capturing mouse")
 		if not is_game_over:
+			print("Re-capturing mouse")
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event is InputEventKey and event.keycode == KEY_ESCAPE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -88,3 +95,14 @@ func clear_all_torches() -> void:
 
 func on_return_to_main_menu() -> void:
 	get_tree().change_scene_to_file("res://game/MainMenu.tscn")
+
+func on_load_torches(torch_count:int) -> void:
+	torches_remaining = torch_count
+	torch_count_label.text = str(torches_remaining)
+	player_root.out_of_torches = torches_remaining <= 0
+
+func on_torch_thrown() -> void:
+	torches_remaining = max(torches_remaining - 1, 0)
+	torch_count_label.text = str(torches_remaining)
+	player_root.out_of_torches = torches_remaining <= 0
+	

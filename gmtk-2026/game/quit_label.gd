@@ -4,6 +4,7 @@ extends Label
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		print("Quit clicked!")   
+		accept_event()
 		SignalBus.return_to_main_menu.emit()
 		
 func _on_mouse_entered() -> void:

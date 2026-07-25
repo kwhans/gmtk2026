@@ -6,6 +6,8 @@ func _ready() -> void:
 	bake_finished.connect(on_bake_finished)
 	bake_navigation_mesh(true) # needed in case level was reloaded
 	
+	SignalBus.load_torches.emit(7)
+	
 func on_wall_removed() -> void:
 	print("starting re-bake")
 	bake_navigation_mesh(true)

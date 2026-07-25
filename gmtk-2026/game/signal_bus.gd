@@ -1,10 +1,10 @@
 extends Node
 
 @warning_ignore("unused_signal")
-signal level_start(level_number)
+signal level_start(level_number:int)
 
 @warning_ignore("unused_signal")
-signal level_complete(level_number)
+signal level_complete(level_number:int)
 
 @warning_ignore("unused_signal")
 signal game_over
@@ -23,3 +23,9 @@ signal retry_level
 
 @warning_ignore("unused_signal")
 signal wall_removed
+
+@warning_ignore("unused_signal")
+signal load_torches(torch_count:int)
+
+@warning_ignore("unused_signal")
+signal torch_thrown
