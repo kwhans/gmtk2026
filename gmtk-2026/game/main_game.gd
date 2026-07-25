@@ -14,6 +14,8 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	SignalBus.game_over.connect(on_game_over)
 	SignalBus.retry_level.connect(on_retry_level)
+	SignalBus.return_to_main_menu.connect(on_return_to_main_menu)
+	loadLevel(GlobalGameState.starting_level)
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -83,3 +85,6 @@ func clear_all_torches() -> void:
 	var allTorches = get_tree().get_nodes_in_group(&"Torches")
 	for torch in allTorches:
 		torch.queue_free()
+
+func on_return_to_main_menu() -> void:
+	get_tree().change_scene_to_file("res://game/MainMenu.tscn")

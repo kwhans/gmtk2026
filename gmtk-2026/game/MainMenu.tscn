@@ -1,5 +1,19 @@
 [gd_scene format=3 uid="uid://b3ytn7ckghyuy"]
 
+[ext_resource type="Script" uid="uid://majrtartdkpw" path="res://game/main_menu.gd" id="1_4yocy"]
+[ext_resource type="Texture2D" uid="uid://bsrlwndtotfst" path="res://game/spriteTextures/EllieThumbnail.png" id="1_yqcqj"]
+[ext_resource type="FontFile" uid="uid://h8mdn0tik33q" path="res://fonts/Ritaglio.ttf" id="2_iek8j"]
+[ext_resource type="Script" uid="uid://cegtnjtv20wut" path="res://game/start_label.gd" id="3_4yocy"]
+[ext_resource type="Script" uid="uid://cvoosjjx84vei" path="res://game/exit_label.gd" id="4_p5yqg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oi33o"]
+font = ExtResource("2_iek8j")
+font_size = 128
+
+[sub_resource type="LabelSettings" id="LabelSettings_dbbea"]
+font = ExtResource("2_iek8j")
+font_size = 64
+
 [node name="MainMenu" type="Control" unique_id=1427374648]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +21,60 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_4yocy")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2031344041]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yqcqj")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=440529912]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -461.5
+offset_top = -86.5
+offset_right = 461.5
+offset_bottom = 86.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=2085507042]
+layout_mode = 2
+text = "Maze of Shadows"
+label_settings = SubResource("LabelSettings_oi33o")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=1750585441]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="StartLabel" type="Label" parent="VBoxContainer" unique_id=1396664295]
+layout_mode = 2
+mouse_filter = 0
+text = "Enter"
+label_settings = SubResource("LabelSettings_dbbea")
+horizontal_alignment = 1
+script = ExtResource("3_4yocy")
+
+[node name="ExitLabel" type="Label" parent="VBoxContainer" unique_id=1147857389]
+layout_mode = 2
+mouse_filter = 0
+text = "Exit"
+label_settings = SubResource("LabelSettings_dbbea")
+horizontal_alignment = 1
+script = ExtResource("4_p5yqg")
+
+[connection signal="mouse_entered" from="VBoxContainer/StartLabel" to="VBoxContainer/StartLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/StartLabel" to="VBoxContainer/StartLabel" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="VBoxContainer/ExitLabel" to="VBoxContainer/ExitLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/ExitLabel" to="VBoxContainer/ExitLabel" method="_on_mouse_exited"]
