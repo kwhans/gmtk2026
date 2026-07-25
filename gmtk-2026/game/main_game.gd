@@ -77,7 +77,7 @@ func loadLevel(levelNum:int) -> void:
 	var newLevelScene : Resource = null
 	match levelNum:
 		1:
-			newLevelScene = load("res://levels/maze1.tscn")
+			newLevelScene = load("res://levels/generator/seeded_maze.tscn")
 		_:
 			#printerr("Unrecognized level: ", levelNum)
 			restore_master_bus()
