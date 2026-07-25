@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://blnwayvvt8epr"]
+
+[ext_resource type="Script" uid="uid://bw0grioyimp1h" path="res://game/win_screen.gd" id="1_0met2"]
+[ext_resource type="Texture2D" uid="uid://bsrlwndtotfst" path="res://game/spriteTextures/EllieThumbnail.png" id="2_8ff0f"]
+[ext_resource type="FontFile" uid="uid://h8mdn0tik33q" path="res://fonts/Ritaglio.ttf" id="3_qlkvp"]
+[ext_resource type="Script" uid="uid://dwsud08em5hfw" path="res://game/quit_label.gd" id="4_0met2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oi33o"]
+font = ExtResource("3_qlkvp")
+font_size = 128
+
+[sub_resource type="LabelSettings" id="LabelSettings_wt4uj"]
+font = ExtResource("3_qlkvp")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_dbbea"]
+font = ExtResource("3_qlkvp")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ff0f"]
+font = ExtResource("3_qlkvp")
+font_size = 32
+
+[node name="WinScreen" type="Control" unique_id=1427374648]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0met2")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2031344041]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8ff0f")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=440529912]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -758.0
+offset_right = 758.0
+offset_bottom = 459.0
+grow_horizontal = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=2085507042]
+layout_mode = 2
+text = "You have escaped the maze."
+label_settings = SubResource("LabelSettings_oi33o")
+horizontal_alignment = 1
+
+[node name="ThanksLabel" type="Label" parent="VBoxContainer" unique_id=552682437]
+layout_mode = 2
+text = "Thank you for playing!"
+label_settings = SubResource("LabelSettings_wt4uj")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=1750585441]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ExitLabel" type="Label" parent="VBoxContainer" unique_id=1147857389]
+layout_mode = 2
+mouse_filter = 0
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_dbbea")
+horizontal_alignment = 1
+script = ExtResource("4_0met2")
+
+[node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=1611254855]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="CreditsLabel" type="Label" parent="VBoxContainer" unique_id=1150057527]
+layout_mode = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_wt4uj")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=660879230]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="CodeLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=424571948]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Code by
+Kyle
+Dexter
+Tyler"
+label_settings = SubResource("LabelSettings_8ff0f")
+
+[node name="ArtLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=2135996826]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Art by
+Eleanor
+Gavin"
+label_settings = SubResource("LabelSettings_8ff0f")
+
+[node name="TesterLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=84386499]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Additional testing 
+and support from
+Flynn,  Daisy,  Jude
+Whitney, Sam
+"
+label_settings = SubResource("LabelSettings_8ff0f")
+
+[node name="ExternalAssetsLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=2055349629]
+layout_mode = 2
+size_flags_vertical = 1
+text = "External Assets Used
+Particle textures: Kenney.nl
+Font: Ritaglio, www.archistico.com
+"
+label_settings = SubResource("LabelSettings_8ff0f")
+
+[node name="ToolsUsed" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1815661390]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Tools Used
+Godot
+Gimp
+Krita"
+label_settings = SubResource("LabelSettings_8ff0f")
+
+[connection signal="mouse_entered" from="VBoxContainer/ExitLabel" to="VBoxContainer/ExitLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/ExitLabel" to="VBoxContainer/ExitLabel" method="_on_mouse_exited"]

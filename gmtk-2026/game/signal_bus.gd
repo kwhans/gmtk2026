@@ -19,9 +19,6 @@ signal torched_a_ghost
 signal start_main_game
 
 @warning_ignore("unused_signal")
-signal return_to_main_menu
-
-@warning_ignore("unused_signal")
 signal retry_level
 
 @warning_ignore("unused_signal")

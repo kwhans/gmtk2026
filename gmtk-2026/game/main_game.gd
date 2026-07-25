@@ -19,7 +19,6 @@ func _ready() -> void:
 	SignalBus.level_complete.connect(on_level_complete)
 	SignalBus.load__next_level.connect(on_load_next_level)
 	SignalBus.retry_level.connect(on_retry_level)
-	SignalBus.return_to_main_menu.connect(on_return_to_main_menu)
 	SignalBus.load_torches.connect(on_load_torches)
 	SignalBus.torch_thrown.connect(on_torch_thrown)
 	loadLevel(GlobalGameState.starting_level)
@@ -70,8 +69,10 @@ func loadLevel(levelNum:int) -> void:
 		1:
 			newLevelScene = load("res://levels/maze1.tscn")
 		_:
-			# TODO load win game screen instead of printing error
-			printerr("Unrecognized level: ", levelNum)
+			#printerr("Unrecognized level: ", levelNum)
+			get_tree().change_scene_to_file("res://game/WinScreen.tscn")
+			return
+			
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if newLevelScene == null:
 		return
@@ -104,9 +105,6 @@ func clear_all_torches() -> void:
 	var allTorches = get_tree().get_nodes_in_group(&"Torches")
 	for torch in allTorches:
 		torch.queue_free()
-
-func on_return_to_main_menu() -> void:
-	get_tree().change_scene_to_file("res://game/MainMenu.tscn")
 
 func on_load_torches(torch_count:int) -> void:
 	torches_remaining = torch_count
