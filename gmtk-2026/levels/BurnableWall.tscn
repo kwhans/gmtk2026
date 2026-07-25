@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2761yeywx7fo" path="res://levels/burnable_wall.gd" id="1_cnvxp"]
 [ext_resource type="Texture2D" uid="uid://c86bs84ul1ccf" path="res://levels/textures/Shed.png" id="1_jqd71"]
+[ext_resource type="AudioStream" uid="uid://c6okdllfw78cx" path="res://game/sounds/PuffOfAir.wav" id="3_1fn5m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oi33o"]
 size = Vector3(10, 10, 1)
@@ -92,6 +93,12 @@ transform_align = 1
 transform_align_channel_filter = 0
 process_material = SubResource("ParticleProcessMaterial_kknia")
 draw_pass_1 = SubResource("QuadMesh_daqnr")
+
+[node name="BurningSound" type="AudioStreamPlayer3D" parent="." unique_id=820643250]
+stream = ExtResource("3_1fn5m")
+volume_db = -10.0
+unit_size = 5.0
+bus = &"PlayerSfx"
 
 [connection signal="body_entered" from="BurnArea" to="." method="_on_burn_area_body_entered"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_burn_time_timeout"]

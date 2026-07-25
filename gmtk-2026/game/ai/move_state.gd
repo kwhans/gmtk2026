@@ -13,7 +13,7 @@ func _ready() -> void:
 	monster = owner as Monster
 
 func _enter() -> void:
-	monster.setAppearance(Monster.MonsterAppearance.Idle)
+	monster.setAppearance(Monster.MonsterAppearance.Moving)
 	var targetNode = get_tree().get_first_node_in_group(&"Player")
 	targetPlayer = targetNode as Player
 	if is_instance_valid(targetPlayer):

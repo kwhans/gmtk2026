@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b7xtvjvakjejx" path="res://game/player.gd" id="1_berb2"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_4r2ne"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_4r2ne"]
+[ext_resource type="AudioStream" uid="uid://jequl0uhxuln" path="res://game/sounds/Crumple.wav" id="4_08n30"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oi33o"]
 height = 3.0
@@ -46,5 +47,12 @@ collision_mask = 25
 [node name="wall bumper" type="CollisionShape3D" parent="." unique_id=1916231039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_berb2")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=947011013]
+current = true
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="." unique_id=214866717]
+stream = ExtResource("4_08n30")
+bus = &"PlayerSfx"
 
 [connection signal="timeout" from="TorchReloadTimer" to="." method="_on_torch_reload_timer_timeout"]

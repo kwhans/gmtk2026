@@ -8,6 +8,15 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var move_sprite: MeshInstance3D = $MoveSprite
 @onready var dying_sprite: MeshInstance3D = $DyingSprite
 @onready var glow_eyes_sprite: MeshInstance3D = $GlowEyesSprite
+@onready var fire_pfx: GPUParticles3D = $FirePfx
+@onready var breathing_sound: AudioStreamPlayer3D = $BreathingSound
+@onready var attack_sound: AudioStreamPlayer3D = $AttackSound
+@onready var darkness_sound: AudioStreamPlayer3D = $DarknessSound
+@onready var lost_sound: AudioStreamPlayer3D = $LostSound
+@onready var pain_sound: AudioStreamPlayer3D = $PainSound
+@onready var scream_sound: AudioStreamPlayer3D = $ScreamSound
+
+@onready var idle_sounds_timer: Timer = $IdleSoundsTimer
 
 @onready var hsm:LimboHSM = $LimboHSM
 @onready var idle_state:LimboState = $LimboHSM/IdleState
@@ -27,6 +36,7 @@ var path_target_node:Node3D = null
 enum MonsterAppearance
 {
 	Idle,
+	Moving,
 	Attacking,
 	Dying
 }
@@ -83,21 +93,41 @@ func setAppearance(appearance:MonsterAppearance) -> void:
 			dying_sprite.visible = false
 			glow_eyes_sprite.material_override.emission = Color(1.0, 1.0, 0.388, 1.0) if gavinVariant else Color(0.0, 1.0, 0.596, 1.0)
 			glow_eyes_sprite.visible = true
-			$FirePfx.emitting = false
+			fire_pfx.emitting = false
+			breathing_sound.playing = false
+			idle_sounds_timer.start(randf_range(5.0, 20.0))
+			
+		MonsterAppearance.Moving:
+			idle_sprite.visible = true
+			move_sprite.visible = false
+			dying_sprite.visible = false
+			glow_eyes_sprite.material_override.emission = Color(1.0, 1.0, 0.388, 1.0) if gavinVariant else Color(0.0, 1.0, 0.596, 1.0)
+			glow_eyes_sprite.visible = true
+			fire_pfx.emitting = false
+			breathing_sound.playing = true
+			idle_sounds_timer.start(randf_range(5.0, 20.0))
+			
 		MonsterAppearance.Attacking:
 			idle_sprite.visible = false
 			move_sprite.visible = true
 			dying_sprite.visible = false
 			glow_eyes_sprite.material_override.emission = Color(1.0, 0.0, 0.0, 1.0)
 			glow_eyes_sprite.visible = true
-			$FirePfx.emitting = false
+			fire_pfx.emitting = false
+			breathing_sound.playing = true
+			idle_sounds_timer.stop()
+			attack_sound.play()
+			
 		MonsterAppearance.Dying:
 			idle_sprite.visible = false
 			move_sprite.visible = false
 			dying_sprite.visible = true
 			#glow_eyes_sprite.material_override.emission = Color(0.0, 0.0, 0.0, 1.0) if gavinVariant else Color(1.0, 1.0, 1.0, 1.0)
 			glow_eyes_sprite.visible = false
-			$FirePfx.emitting = true
+			fire_pfx.emitting = true
+			breathing_sound.playing = false
+			idle_sounds_timer.stop()
+			scream_sound.play()
 			
 func beginFadeOut(duration:float) -> void:
 	# Prevent player from dying to a dying ghost
@@ -158,3 +188,18 @@ func on_out_of_torches() -> void:
 
 func on_level_complete() -> void:
 	hsm.dispatch(EVENT_TORCHED)
+
+
+func _on_idle_sounds_timer_timeout() -> void:
+	# play a random idle sound
+	var i = randi() % 3
+	match i:
+		0: 
+			darkness_sound.play()
+		1:
+			lost_sound.play()
+		2:
+			pain_sound.play()
+			
+	# queue up the next random sound time
+	idle_sounds_timer.start(randf_range(5.0, 15.0))

@@ -25,6 +25,7 @@ const torchScene := preload("res://game/Torch.tscn")
 
 @onready var torch_aim_ray: RayCast3D = %TorchAimRay
 @onready var torch_reload_timer: Timer = $TorchReloadTimer
+@onready var death_sound: AudioStreamPlayer3D = $DeathSound
 
 func _ready():
 	spawn_torch()
@@ -132,6 +133,7 @@ func spawn_torch():
 	
 func on_game_over() -> void:
 	player_is_dead = true
+	death_sound.play()
 	
 func on_level_start(_levelNum) -> void:
 	player_is_dead = false

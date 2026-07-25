@@ -13,6 +13,9 @@ class_name Torch
 
 @onready var omni_light_3d: OmniLight3D = $TorchStick/OmniLight3D
 
+@onready var extinguish_sound: AudioStreamPlayer3D = $ExtinguishSound
+@onready var burning_sound: AudioStreamPlayer3D = $BurningSound
+
 func _ready() -> void:
 	omni_light_3d.light_energy = 0.0
 	var tween = create_tween()
@@ -40,6 +43,8 @@ func _on_regular_burn_timer_timeout() -> void:
 	#tween.tween_property(fire_particles, "lifetime", 0.1, burnout_timer.wait_time)
 	
 func _on_burnout_timer_timeout() -> void:
+	burning_sound.stop()
+	extinguish_sound.play()
 	fire_particles_late.emitting = false
 	smoke_particles.emitting = false
 	despawn_timer.start()

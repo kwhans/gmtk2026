@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dviso1sxelivg" path="res://game/torch.gd" id="1_338n8"]
 [ext_resource type="Texture2D" uid="uid://ca467mho4plgx" path="res://game/particleTextures/smoke_07.png" id="2_nmy60"]
+[ext_resource type="AudioStream" uid="uid://gc7skah0rpnt" path="res://game/sounds/DousedFlame.wav" id="3_338n8"]
+[ext_resource type="AudioStream" uid="uid://bhpso4g56611g" path="res://game/sounds/torchBurnLoop.wav" id="4_6i1ci"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_berb2"]
 bounce = 0.5
@@ -165,6 +167,21 @@ one_shot = true
 
 [node name="DespawnTimer" type="Timer" parent="." unique_id=305111811]
 one_shot = true
+
+[node name="ExtinguishSound" type="AudioStreamPlayer3D" parent="." unique_id=630058647]
+stream = ExtResource("3_338n8")
+attenuation_model = 2
+volume_db = -10.0
+max_distance = 5.0
+bus = &"PlayerSfx"
+
+[node name="BurningSound" type="AudioStreamPlayer3D" parent="." unique_id=1375954531]
+stream = ExtResource("4_6i1ci")
+attenuation_model = 1
+volume_db = -10.0
+unit_size = 2.0
+autoplay = true
+max_distance = 10.0
 
 [connection signal="timeout" from="EarlyBurnTimer" to="." method="_on_early_burn_timer_timeout"]
 [connection signal="timeout" from="RegularBurnTimer" to="." method="_on_regular_burn_timer_timeout"]
