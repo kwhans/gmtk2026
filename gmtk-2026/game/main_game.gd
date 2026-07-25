@@ -22,11 +22,8 @@ func _ready() -> void:
 	loadLevel(GlobalGameState.starting_level)
 	
 func _unhandled_input(event):
-	print("Encountered unhandled input")
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		print("Considering re-capturing mouse")
 		if not is_game_over:
-			print("Re-capturing mouse")
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event is InputEventKey and event.keycode == KEY_ESCAPE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -98,11 +95,15 @@ func on_return_to_main_menu() -> void:
 
 func on_load_torches(torch_count:int) -> void:
 	torches_remaining = torch_count
-	torch_count_label.text = str(torches_remaining)
-	player_root.out_of_torches = torches_remaining <= 0
+	notify_of_updated_torch_count()
 
 func on_torch_thrown() -> void:
 	torches_remaining = max(torches_remaining - 1, 0)
+	notify_of_updated_torch_count()
+		
+func notify_of_updated_torch_count() -> void:
 	torch_count_label.text = str(torches_remaining)
 	player_root.out_of_torches = torches_remaining <= 0
+	if player_root.out_of_torches:
+		SignalBus.out_of_torches.emit()
 	

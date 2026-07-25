@@ -39,6 +39,7 @@ func _ready() -> void:
 		
 	init_state_machine()
 	navigation_agent_3d.velocity_computed.connect(on_safe_velocity_computed)
+	SignalBus.out_of_torches.connect(on_out_of_torches)
 	
 func _physics_process(delta) -> void:
 	var new_velocity:Vector3 = velocity
@@ -65,6 +66,8 @@ func init_state_machine() -> void:
 	hsm.add_transition(move_state, attack_state, move_state.EVENT_FINISHED)
 	hsm.add_transition(attack_state, move_state, attack_state.EVENT_FINISHED)
 	hsm.add_transition(hsm.ANYSTATE, dying_state, EVENT_TORCHED)
+	
+	hsm.add_transition(idle_state, move_state, &"out_of_torches")
 	
 	hsm.initial_state = idle_state
 	hsm.initialize(self)
@@ -147,3 +150,7 @@ func _on_hit_box_body_entered(body: Node3D) -> void:
 	elif body.is_in_group(&"Torches"):
 		print("I've been torched!")
 		hsm.dispatch(EVENT_TORCHED)
+
+func on_out_of_torches() -> void:
+	hsm.dispatch(&"out_of_torches")
+	

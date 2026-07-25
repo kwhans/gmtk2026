@@ -29,3 +29,6 @@ signal load_torches(torch_count:int)
 
 @warning_ignore("unused_signal")
 signal torch_thrown
+
+@warning_ignore("unused_signal")
+signal out_of_torches
