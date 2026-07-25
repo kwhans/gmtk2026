@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cmn20nybuf0uo" path="res://levels/textures/Grass.png" id="1_rgp34"]
 [ext_resource type="PackedScene" uid="uid://8hvvyn2wr8yo" path="res://game/Monster.tscn" id="2_3vc1l"]
 [ext_resource type="PackedScene" uid="uid://ds01kjoetcb6t" path="res://levels/BurnableWall.tscn" id="4_qjjkf"]
+[ext_resource type="PackedScene" uid="uid://b6bbhg1ctqtjo" path="res://game/pop_up_message.tscn" id="6_l2e55"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_aun6x"]
 vertices = PackedVector3Array(-48.5, 0.5, -3, -7, 0.5, -2.5, -7, 0.5, -5.5, -5.5, 0.5, -7, -2.5, 0.5, -7, -3, 0.5, -48.5, -48.5, 0.5, -48.5, 3, 0.5, -7, 3.5, 0.5, -48.5, 7.5, 0.5, -5.5, 7.5, 0.5, 13, 16, 0.5, 13, 17, 0.5, 15, 48.5, 0.5, 15, 48.5, 0.5, -48.5, 6, 0.5, -7, -15.5, 0.5, 13, -7, 0.5, 13, -48.5, 0.5, 15, -16.5, 0.5, 15, 5, 0.5, 28, 5.5, 0.5, 17.5, 3, 0.5, 16, -2.5, 0.5, 15.5, -5.5, 0.5, 17.5, -5, 0.5, 28, 3, 0.5, -2.5, -2.5, 0.5, -2.5, -6.5, 0.5, 29, -15.5, 0.5, 17.5, -1.5, 0.5, 48.5, -6.5, 0.5, 31.5, -48.5, 0.5, 48.5, -1.5, 0.5, 32.5, -5.5, 0.5, 32.5, 7, 0.5, 29, 15.5, 0.5, 17.5, 7, 0.5, 31, 48.5, 0.5, 48.5, 5.5, 0.5, 32.5)
@@ -77,3 +78,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 15)
 
 [node name="BurnableWall3" parent="." unique_id=2143550729 instance=ExtResource("4_qjjkf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 15)
+
+[node name="PopUpArea" parent="." unique_id=505858509 instance=ExtResource("6_l2e55")]

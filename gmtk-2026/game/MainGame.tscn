@@ -36,7 +36,6 @@ script = ExtResource("1_q5fd3")
 [node name="MainCamera3D" type="Camera3D" parent="." unique_id=1112213491]
 physics_interpolation_mode = 1
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
-top_level = true
 near = 0.135
 
 [node name="PhantomCameraHost" type="Node" parent="MainCamera3D" unique_id=2042073969]
@@ -65,9 +64,6 @@ vertical_rotation_offset = 0.7941248096574199
 spring_length = 2.0
 shape = SubResource("SeparationRayShape3D_u3mfo")
 look_at_offset = Vector3(0, 2.5, 0)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
-align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1206180581]
@@ -84,9 +80,6 @@ look_at_target = NodePath("../PlayerRoot")
 tween_resource = SubResource("Resource_q5fd3")
 inactive_update_mode = 1
 follow_offset = Vector3(0, 30, 0)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
-align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="GameOverTimer" type="Timer" parent="." unique_id=2009411678]

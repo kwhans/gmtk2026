@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b6bbhg1ctqtjo"]
+
+[ext_resource type="Script" uid="uid://yuwmh263h3t5" path="res://game/pop_up_message.gd" id="1_8crrf"]
+[ext_resource type="FontFile" uid="uid://h8mdn0tik33q" path="res://fonts/Ritaglio.ttf" id="2_mv1bb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oi33o"]
+radius = 2.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_oi33o"]
+font = ExtResource("2_mv1bb")
+font_size = 128
+font_color = Color(0.72130245, 0.7213019, 0.72130203, 1)
+
+[node name="PopUpArea" type="Area3D" unique_id=505858509]
+collision_layer = 64
+collision_mask = 2
+script = ExtResource("1_8crrf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1132851527]
+shape = SubResource("SphereShape3D_oi33o")
+
+[node name="hudRoot" type="Control" parent="." unique_id=2016082857]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ControlsText" type="Label" parent="hudRoot" unique_id=572736910]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.5
+offset_right = 66.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "[WASD] TO MOVE"
+label_settings = SubResource("LabelSettings_oi33o")
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
