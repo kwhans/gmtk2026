@@ -102,7 +102,7 @@ transparency = 1
 vertex_color_use_as_albedo = true
 albedo_texture = SubResource("CompressedTexture2D_jg8wj")
 emission_enabled = true
-emission = Color(0.8509804, 0.68235296, 0.09019608, 1)
+emission = Color(0.29411766, 0.78431374, 0.52156866, 1)
 emission_energy_multiplier = 7.0
 billboard_mode = 3
 billboard_keep_scale = true
@@ -206,7 +206,7 @@ script = ExtResource("3_8ou7p")
 
 [node name="MoveState" type="LimboState" parent="LimboHSM" unique_id=625267724]
 script = ExtResource("6_nmkhp")
-agression_range = 5.0
+agression_range = 10.0
 
 [node name="AttackState" type="LimboState" parent="LimboHSM" unique_id=33711527]
 script = ExtResource("7_hq6qu")

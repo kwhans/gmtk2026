@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://b6llacvqkdktw"]
 
 [ext_resource type="Script" uid="uid://dviso1sxelivg" path="res://game/torch.gd" id="1_338n8"]
-[ext_resource type="Texture2D" uid="uid://bgq6cwld6lrj1" path="res://game/particleTextures/fire_02.png" id="1_tkshc"]
 [ext_resource type="Texture2D" uid="uid://ca467mho4plgx" path="res://game/particleTextures/smoke_07.png" id="2_nmy60"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_berb2"]
@@ -16,10 +15,13 @@ top_radius = 0.06
 bottom_radius = 0.04
 height = 1.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxn24"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nmy60"]
+load_path = "res://.godot/imported/fire_02.png-0ba3d98dbaf45634a22110ea78b8d466.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i1ci"]
 transparency = 1
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_tkshc")
+albedo_texture = SubResource("CompressedTexture2D_nmy60")
 emission_enabled = true
 emission = Color(0.8509804, 0.68235296, 0.09019608, 1)
 emission_energy_multiplier = 7.0
@@ -48,6 +50,30 @@ scale_max = 4.0
 color_ramp = SubResource("GradientTexture1D_338n8")
 
 [sub_resource type="QuadMesh" id="QuadMesh_aun6x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fhans"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_nmy60")
+emission_enabled = true
+emission = Color(0.8509804, 0.3372549, 0.09019608, 1)
+emission_energy_multiplier = 7.0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3tbfq"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_nmy60")
+emission_enabled = true
+emission = Color(0.8509804, 0, 0.09019608, 1)
+emission_energy_multiplier = 7.0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_338n8"]
 render_priority = -1
@@ -78,9 +104,27 @@ script = ExtResource("1_338n8")
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 mesh = SubResource("CylinderMesh_nmy60")
 
-[node name="FireParticles" type="GPUParticles3D" parent="TorchStick" unique_id=2074781709]
+[node name="FireParticlesEarly" type="GPUParticles3D" parent="TorchStick" unique_id=2074781709]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.5503713, 0)
-material_override = SubResource("StandardMaterial3D_xxn24")
+material_override = SubResource("StandardMaterial3D_6i1ci")
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_oi33o")
+draw_pass_1 = SubResource("QuadMesh_aun6x")
+
+[node name="FireParticlesMid" type="GPUParticles3D" parent="TorchStick" unique_id=1709820299]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.5503713, 0)
+material_override = SubResource("StandardMaterial3D_fhans")
+emitting = false
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_oi33o")
+draw_pass_1 = SubResource("QuadMesh_aun6x")
+
+[node name="FireParticlesLate" type="GPUParticles3D" parent="TorchStick" unique_id=2111566288]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0.5503713, 0)
+material_override = SubResource("StandardMaterial3D_3tbfq")
+emitting = false
 transform_align = 1
 transform_align_channel_filter = 1
 process_material = SubResource("ParticleProcessMaterial_oi33o")
@@ -106,8 +150,23 @@ omni_range = 60.0
 shape = SubResource("CylinderShape3D_dta0a")
 disabled = true
 
-[node name="BurnoutTimer" type="Timer" parent="." unique_id=1420075691]
+[node name="EarlyBurnTimer" type="Timer" parent="." unique_id=1631427540]
 wait_time = 10.0
+one_shot = true
 autostart = true
 
+[node name="RegularBurnTimer" type="Timer" parent="." unique_id=1666458450]
+wait_time = 10.0
+one_shot = true
+
+[node name="BurnoutTimer" type="Timer" parent="." unique_id=1420075691]
+wait_time = 10.0
+one_shot = true
+
+[node name="DespawnTimer" type="Timer" parent="." unique_id=305111811]
+one_shot = true
+
+[connection signal="timeout" from="EarlyBurnTimer" to="." method="_on_early_burn_timer_timeout"]
+[connection signal="timeout" from="RegularBurnTimer" to="." method="_on_regular_burn_timer_timeout"]
 [connection signal="timeout" from="BurnoutTimer" to="." method="_on_burnout_timer_timeout"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
