@@ -9,6 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://byk3lu8jh7xr2" path="res://game/spriteTextures/TorchIcon.png" id="7_agtre"]
 [ext_resource type="FontFile" uid="uid://h8mdn0tik33q" path="res://fonts/Ritaglio.ttf" id="8_aeyhu"]
 [ext_resource type="PackedScene" uid="uid://bslsdr6t3gf2a" path="res://game/GameOverScreen.tscn" id="8_agtre"]
+[ext_resource type="AudioStream" uid="uid://b0xtscwxyndhl" path="res://game/songs/1-Dark Fantasy Studio- The myst (seamless).mp3" id="10_x16wb"]
+[ext_resource type="AudioStream" uid="uid://bdp1nncdkska2" path="res://game/songs/4-Dark Fantasy Studio-Red moon (seamless).mp3" id="11_u85qj"]
+[ext_resource type="AudioStream" uid="uid://dfnq68807oeu1" path="res://game/songs/5-Dark Fantasy Studio- The crypt (seamless).mp3" id="12_jpc7f"]
+[ext_resource type="AudioStream" uid="uid://d2vd6j7uis4qu" path="res://game/songs/2-Dark Fantasy Studio- Fear me (seamless).mp3" id="13_itulm"]
+[ext_resource type="AudioStream" uid="uid://cjogkrvv6dx4q" path="res://game/songs/4-Dark Fantasy Studio- Silence is dead (seamless).mp3" id="14_4oc2a"]
 
 [sub_resource type="Resource" id="Resource_aeyhu"]
 script = ExtResource("5_agtre")
@@ -37,6 +42,7 @@ script = ExtResource("1_q5fd3")
 [node name="MainCamera3D" type="Camera3D" parent="." unique_id=1112213491]
 physics_interpolation_mode = 1
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
+top_level = true
 near = 0.135
 
 [node name="PhantomCameraHost" type="Node" parent="MainCamera3D" unique_id=2042073969]
@@ -127,5 +133,25 @@ stretch_mode = 2
 layout_mode = 2
 text = "3"
 label_settings = SubResource("LabelSettings_oi33o")
+
+[node name="RegularSongMyst" type="AudioStreamPlayer" parent="." unique_id=1137409657]
+stream = ExtResource("10_x16wb")
+bus = &"Music"
+
+[node name="RegularSongRedMoon" type="AudioStreamPlayer" parent="." unique_id=1380346631]
+stream = ExtResource("11_u85qj")
+bus = &"Music"
+
+[node name="RegularSongTheCrypt" type="AudioStreamPlayer" parent="." unique_id=146996595]
+stream = ExtResource("12_jpc7f")
+bus = &"Music"
+
+[node name="RegularSongSilenceIsDead" type="AudioStreamPlayer" parent="." unique_id=1228890201]
+stream = ExtResource("14_4oc2a")
+bus = &"Music"
+
+[node name="ExcitingSongFearMe" type="AudioStreamPlayer" parent="." unique_id=1286375431]
+stream = ExtResource("13_itulm")
+bus = &"Music"
 
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

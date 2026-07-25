@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dfnq68807oeu1"
+path="res://.godot/imported/5-Dark Fantasy Studio- The crypt (seamless).mp3-2bb9d7c2693e989860ab21140b634b69.mp3str"
+
+[deps]
+
+source_file="res://game/songs/5-Dark Fantasy Studio- The crypt (seamless).mp3"
+dest_files=["res://.godot/imported/5-Dark Fantasy Studio- The crypt (seamless).mp3-2bb9d7c2693e989860ab21140b634b69.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

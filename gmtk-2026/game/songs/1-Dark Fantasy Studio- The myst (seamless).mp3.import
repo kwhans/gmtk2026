@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0xtscwxyndhl"
+path="res://.godot/imported/1-Dark Fantasy Studio- The myst (seamless).mp3-e59417bf28ee7bf0cb4c2dbf23b112a4.mp3str"
+
+[deps]
+
+source_file="res://game/songs/1-Dark Fantasy Studio- The myst (seamless).mp3"
+dest_files=["res://.godot/imported/1-Dark Fantasy Studio- The myst (seamless).mp3-e59417bf28ee7bf0cb4c2dbf23b112a4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

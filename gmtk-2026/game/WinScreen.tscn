@@ -19,7 +19,7 @@ font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_8ff0f"]
 font = ExtResource("3_qlkvp")
-font_size = 32
+font_size = 18
 
 [node name="WinScreen" type="Control" unique_id=1427374648]
 layout_mode = 3
@@ -64,7 +64,7 @@ label_settings = SubResource("LabelSettings_wt4uj")
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="VBoxContainer" unique_id=1750585441]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="ExitLabel" type="Label" parent="VBoxContainer" unique_id=1147857389]
@@ -76,7 +76,7 @@ horizontal_alignment = 1
 script = ExtResource("4_0met2")
 
 [node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=1611254855]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="CreditsLabel" type="Label" parent="VBoxContainer" unique_id=1150057527]
@@ -87,7 +87,7 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=660879230]
 layout_mode = 2
-theme_override_constants/separation = 100
+theme_override_constants/separation = 50
 alignment = 1
 
 [node name="CodeLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=424571948]
@@ -123,7 +123,12 @@ size_flags_vertical = 1
 text = "External Assets Used
 Particle textures: Kenney.nl
 Font: Ritaglio, www.archistico.com
-"
+Songs from Dark Fantasy Studio
+- The myst
+- Fear me
+- Silence is dead
+- Red moon
+- The crypt"
 label_settings = SubResource("LabelSettings_8ff0f")
 
 [node name="ToolsUsed" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1815661390]
@@ -132,7 +137,8 @@ size_flags_vertical = 1
 text = "Tools Used
 Godot
 Gimp
-Krita"
+Krita
+Audacity"
 label_settings = SubResource("LabelSettings_8ff0f")
 
 [connection signal="mouse_entered" from="VBoxContainer/ExitLabel" to="VBoxContainer/ExitLabel" method="_on_mouse_entered"]

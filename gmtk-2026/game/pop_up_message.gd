@@ -3,10 +3,10 @@ extends Area3D
 
 
 
-func _on_body_entered(body: Node3D) -> void:
+func _on_body_entered(_body: Node3D) -> void:
 	hud_root.visible = true
 
 
 
-func _on_body_exited(body: Node3D) -> void:
+func _on_body_exited(_body: Node3D) -> void:
 	hud_root.visible = false
