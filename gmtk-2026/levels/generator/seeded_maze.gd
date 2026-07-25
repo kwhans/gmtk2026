@@ -17,8 +17,8 @@ var verticalWalls: Array
 var horizontalWalls: Array
 
 func _ready() -> void:
+	super._ready()
 	generate_maze()
-	on_wall_removed()
 
 func generate_maze() -> void:
 	mazeSpaces = build2Darray(maze_size, maze_size)

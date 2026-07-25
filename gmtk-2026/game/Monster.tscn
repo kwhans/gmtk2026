@@ -216,6 +216,7 @@ agression_range = 10.0
 
 [node name="AttackState" type="LimboState" parent="LimboHSM" unique_id=33711527]
 script = ExtResource("7_hq6qu")
+speedMultiplier = 1.2
 
 [node name="DyingState" type="LimboState" parent="LimboHSM" unique_id=1571673934]
 script = ExtResource("7_jg8wj")

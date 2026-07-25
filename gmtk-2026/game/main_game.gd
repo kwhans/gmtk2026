@@ -53,7 +53,7 @@ func _on_game_over_timer_timeout() -> void:
 
 func on_level_complete() -> void:
 	playSong(null)
-	fade_out_master_bus(0.5)
+	fade_out_master_bus(2.0)
 	is_game_over = true
 	level_complete_screen.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -77,6 +77,8 @@ func loadLevel(levelNum:int) -> void:
 	var newLevelScene : Resource = null
 	match levelNum:
 		1:
+			newLevelScene = load("res://levels/maze1.tscn")
+		2:
 			newLevelScene = load("res://levels/generator/seeded_maze.tscn")
 		_:
 			#printerr("Unrecognized level: ", levelNum)

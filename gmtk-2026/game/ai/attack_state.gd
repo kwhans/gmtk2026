@@ -16,6 +16,9 @@ func _enter() -> void:
 	monster.setAppearance(Monster.MonsterAppearance.Attacking)
 	monster.speed *= speedMultiplier
 	
+func _exit() -> void:
+	monster.speed /= speedMultiplier
+	
 func _update(delta: float) -> void:
 	if !is_instance_valid(targetPlayer):
 		var targetNode = get_tree().get_first_node_in_group(&"Player")
