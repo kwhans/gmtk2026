@@ -4,7 +4,10 @@ extends Node
 signal level_start(level_number:int)
 
 @warning_ignore("unused_signal")
-signal level_complete(level_number:int)
+signal level_complete()
+
+@warning_ignore("unused_signal")
+signal load__next_level()
 
 @warning_ignore("unused_signal")
 signal game_over

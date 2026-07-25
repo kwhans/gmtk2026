@@ -85,6 +85,7 @@ throw={
 3d_navigation/layer_3="Actors"
 3d_physics/layer_4="Monster"
 3d_physics/layer_5="DestructibleObstacle"
+3d_physics/layer_6="Goal"
 3d_physics/layer_7="Hint Layer"
 avoidance/layer_1="DestructibleObstacles"
 avoidance/layer_2="Monster"
