@@ -4,6 +4,7 @@ extends Node3D
 @onready var player_root: Player = $PlayerRoot
 @onready var game_over_timer: Timer = $GameOverTimer
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
+@onready var level_complete_screen: CanvasLayer = $LevelCompleteScreen
 @onready var level_stub: Node3D = $LevelStub
 @onready var torch_count_label: Label = $HUD/MarginContainer/HBoxContainer/TorchCountLabel
 
@@ -15,6 +16,8 @@ var torches_remaining: int = 3
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	SignalBus.game_over.connect(on_game_over)
+	SignalBus.level_complete.connect(on_level_complete)
+	SignalBus.load__next_level.connect(on_load_next_level)
 	SignalBus.retry_level.connect(on_retry_level)
 	SignalBus.return_to_main_menu.connect(on_return_to_main_menu)
 	SignalBus.load_torches.connect(on_load_torches)
@@ -40,8 +43,19 @@ func _on_game_over_timer_timeout() -> void:
 	# show game over menu
 	game_over_screen.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	pass # Replace with function body.
 
+func on_level_complete() -> void:
+	is_game_over = true
+	level_complete_screen.visible = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+func on_load_next_level() -> void:
+	level_complete_screen.visible = false
+	clear_all_torches()
+	currentLevel += 1
+	loadLevel(currentLevel)
+	is_game_over = false
+	
 func on_retry_level() -> void:
 	print("Reload level")
 	clear_all_torches()
@@ -56,11 +70,12 @@ func loadLevel(levelNum:int) -> void:
 		1:
 			newLevelScene = load("res://levels/maze1.tscn")
 		_:
+			# TODO load win game screen instead of printing error
 			printerr("Unrecognized level: ", levelNum)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if newLevelScene == null:
 		return
 		
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	currentLevel = levelNum
 	
 	# Remove current level

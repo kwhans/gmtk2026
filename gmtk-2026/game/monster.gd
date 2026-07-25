@@ -19,6 +19,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 
 const EVENT_TORCHED:StringName = &"torched"
+const EVENT_OUT_OF_TORCHES:StringName = &"out_of_torches"
 
 var move_direction: Vector3 = Vector3.ZERO
 var path_target_node:Node3D = null
@@ -40,6 +41,7 @@ func _ready() -> void:
 	init_state_machine()
 	navigation_agent_3d.velocity_computed.connect(on_safe_velocity_computed)
 	SignalBus.out_of_torches.connect(on_out_of_torches)
+	SignalBus.level_complete.connect(on_level_complete)
 	
 func _physics_process(delta) -> void:
 	var new_velocity:Vector3 = velocity
@@ -67,7 +69,7 @@ func init_state_machine() -> void:
 	hsm.add_transition(attack_state, move_state, attack_state.EVENT_FINISHED)
 	hsm.add_transition(hsm.ANYSTATE, dying_state, EVENT_TORCHED)
 	
-	hsm.add_transition(idle_state, move_state, &"out_of_torches")
+	hsm.add_transition(idle_state, move_state, EVENT_OUT_OF_TORCHES)
 	
 	hsm.initial_state = idle_state
 	hsm.initialize(self)
@@ -152,5 +154,7 @@ func _on_hit_box_body_entered(body: Node3D) -> void:
 		hsm.dispatch(EVENT_TORCHED)
 
 func on_out_of_torches() -> void:
-	hsm.dispatch(&"out_of_torches")
-	
+	hsm.dispatch(EVENT_OUT_OF_TORCHES)
+
+func on_level_complete() -> void:
+	hsm.dispatch(EVENT_TORCHED)

@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://duryq82viml08"]
+
+[ext_resource type="FontFile" uid="uid://h8mdn0tik33q" path="res://fonts/Ritaglio.ttf" id="1_crjvt"]
+[ext_resource type="Script" uid="uid://bmx4nr72doipa" path="res://game/continue_label.gd" id="2_crjvt"]
+[ext_resource type="Script" uid="uid://dwsud08em5hfw" path="res://game/quit_label.gd" id="3_kdkd7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oi33o"]
+font = ExtResource("1_crjvt")
+font_size = 128
+font_color = Color(0.49, 0.9659999, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aun6x"]
+font = ExtResource("1_crjvt")
+font_size = 64
+
+[node name="LevelCompleteScreen" type="CanvasLayer" unique_id=92640633]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2112831258]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1071, 0.17, 0.15532334, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=877971314]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -244.5
+offset_top = -44.0
+offset_right = 244.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelCompleteLabel" type="Label" parent="VBoxContainer" unique_id=1593009820]
+layout_mode = 2
+text = "Level Complete"
+label_settings = SubResource("LabelSettings_oi33o")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=265398428]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ContinueLabel" type="Label" parent="VBoxContainer" unique_id=1303958128]
+layout_mode = 2
+mouse_filter = 0
+text = "Continue"
+label_settings = SubResource("LabelSettings_aun6x")
+horizontal_alignment = 1
+script = ExtResource("2_crjvt")
+
+[node name="QuitLabel" type="Label" parent="VBoxContainer" unique_id=673866346]
+layout_mode = 2
+mouse_filter = 0
+text = "Return to Menu"
+label_settings = SubResource("LabelSettings_aun6x")
+horizontal_alignment = 1
+script = ExtResource("3_kdkd7")
+
+[connection signal="mouse_entered" from="VBoxContainer/ContinueLabel" to="VBoxContainer/ContinueLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/ContinueLabel" to="VBoxContainer/ContinueLabel" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="VBoxContainer/QuitLabel" to="VBoxContainer/QuitLabel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/QuitLabel" to="VBoxContainer/QuitLabel" method="_on_mouse_exited"]

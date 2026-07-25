@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bgkb8rcsxp8jp"]
+
+[ext_resource type="Script" uid="uid://b7dtw4kb5io1k" path="res://game/goal.gd" id="1_62bw5"]
+[ext_resource type="Texture2D" uid="uid://chlv6llhbe2md" path="res://game/particleTextures/star_04.png" id="1_kupjw"]
+[ext_resource type="Texture2D" uid="uid://dsm0vw6q0pi11" path="res://game/particleTextures/circle_05.png" id="2_62bw5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oi33o"]
+transparency = 1
+albedo_color = Color(0.53, 1, 0.7258334, 1)
+albedo_texture = ExtResource("1_kupjw")
+emission_enabled = true
+emission = Color(0.324, 0.9, 0.88079995, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xxn24"]
+emission_shape_scale = Vector3(5, 5, 0.1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 3, 0)
+scale_min = 0.099999994
+
+[sub_resource type="QuadMesh" id="QuadMesh_aun6x"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oi33o"]
+height = 6.0
+radius = 2.5
+
+[node name="Goal" type="Node3D" unique_id=287330271]
+script = ExtResource("1_62bw5")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=799824512]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_oi33o")
+amount = 32
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_xxn24")
+draw_pass_1 = SubResource("QuadMesh_aun6x")
+
+[node name="GoalArea" type="Area3D" parent="." unique_id=1226233033]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GoalArea" unique_id=2088163714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("CylinderShape3D_oi33o")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1211904716]
+transform = Transform3D(5, 0, 0, 0, -2.1855695e-07, -5, 0, 5, -2.1855695e-07, 0, 0.1, 0)
+modulate = Color(0.5803922, 1, 0.7019608, 1)
+texture = ExtResource("2_62bw5")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=641069232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(0.23000002, 1, 0.79466665, 1)
+light_energy = 3.0
+omni_range = 10.0
+
+[connection signal="body_entered" from="GoalArea" to="." method="_on_goal_area_body_entered"]
