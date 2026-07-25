@@ -27,9 +27,6 @@ script = ExtResource("2_1ddar")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1191452644]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 94.53895, 0)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D" unique_id=841370825]
-transform = Transform3D(0.4296958, -0.12443146, 0.8943592, 0.90297383, 0.05921285, -0.42559648, 3.947024e-08, 0.9904599, 0.13780187, 0, 57.01373, 0)
-
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1617011895]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
@@ -43,6 +40,6 @@ shape = SubResource("BoxShape3D_vlcu4")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
 
-[node name="Goal" parent="StaticBody3D" unique_id=287330271 instance=ExtResource("4_vlcu4")]
+[node name="Goal" parent="." unique_id=287330271 instance=ExtResource("4_vlcu4")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45)
