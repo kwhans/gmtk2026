@@ -4,6 +4,7 @@ class_name Maze
 func _ready() -> void:
 	SignalBus.wall_removed.connect(on_wall_removed)
 	bake_finished.connect(on_bake_finished)
+	bake_navigation_mesh(true) # needed in case level was reloaded
 	
 func on_wall_removed() -> void:
 	print("starting re-bake")

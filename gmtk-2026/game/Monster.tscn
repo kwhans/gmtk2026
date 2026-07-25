@@ -242,9 +242,7 @@ avoidance_enabled = true
 height = 3.0
 radius = 1.0
 neighbor_distance = 20.0
-max_speed = 2.0
 avoidance_layers = 2
 avoidance_mask = 3
-debug_enabled = true
 
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
