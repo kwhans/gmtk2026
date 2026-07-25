@@ -5,5 +5,5 @@ func _ready() -> void:
 	
 func on_start_main_game() -> void:
 	GlobalGameState.starting_level = 1
-	get_tree().change_scene_to_file("res://game/MainGame.tscn")
+	get_tree().change_scene_to_file("res://game/LoadingScreen.tscn")
 	

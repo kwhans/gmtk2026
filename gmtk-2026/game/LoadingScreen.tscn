@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b26pe3gin6tfb"]
+
+[ext_resource type="FontFile" uid="uid://h8mdn0tik33q" path="res://fonts/Ritaglio.ttf" id="1_8qjf6"]
+[ext_resource type="Script" uid="uid://daby2bg8bvfvp" path="res://game/loading_screen.gd" id="1_tbhc6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oi33o"]
+font = ExtResource("1_8qjf6")
+font_size = 128
+
+[sub_resource type="LabelSettings" id="LabelSettings_aun6x"]
+font = ExtResource("1_8qjf6")
+font_size = 32
+
+[node name="LoadingScreen" type="Control" unique_id=1510743293]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tbhc6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=778887286]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=158200415]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -247.5
+offset_top = -86.5
+offset_right = 247.5
+offset_bottom = 86.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoadingLabel" type="Label" parent="VBoxContainer" unique_id=25600416]
+layout_mode = 2
+text = "Loading..."
+label_settings = SubResource("LabelSettings_oi33o")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=1057746258]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer" unique_id=385615879]
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=682842098]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="MessageLabel" type="Label" parent="VBoxContainer" unique_id=1763022017]
+layout_mode = 2
+text = "Something lurks in the darkness."
+label_settings = SubResource("LabelSettings_aun6x")
