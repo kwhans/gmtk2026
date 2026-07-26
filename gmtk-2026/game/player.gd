@@ -135,6 +135,7 @@ func spawn_torch():
 func on_game_over() -> void:
 	player_is_dead = true
 	death_sound.play()
+	collision_layer = 0
 	
 func on_level_start(_levelNum) -> void:
 	player_is_dead = false
