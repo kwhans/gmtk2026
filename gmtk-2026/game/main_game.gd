@@ -98,14 +98,19 @@ func loadLevel(levelNum:int) -> void:
 		level.queue_free()
 		
 	# load the new level
-	var newLevelInstance = newLevelScene.instantiate()
+	var newLevelInstance: Node3D = newLevelScene.instantiate()
 	level_stub.add_child(newLevelInstance)
 	SignalBus.level_start.emit(currentLevel)
 	restore_master_bus(0.5)
 	playSongNumber(randi()%4) # play a random regular song
 	
 	# stick player at start
-	var spawnPoints = get_tree().get_nodes_in_group(&"StartPosition")
+	var spawnPoints = find_children_in_group(newLevelInstance, &"StartPosition", true)
+	
+	 #newLevelInstance.get_tree().get_nodes_in_group(&"StartPosition")
+	var spawnQueue = []
+	for s in spawnPoints:
+		spawnQueue.append(s.is_queued_for_deletion())
 	if spawnPoints.size() <= 0:
 		player_root.position = Vector3.ZERO
 	elif spawnPoints.size() == 1:
@@ -115,7 +120,21 @@ func loadLevel(levelNum:int) -> void:
 		var index = randi() % spawnPoints.size()
 		player_root.global_position = spawnPoints[index].global_position
 		player_root.global_rotation = spawnPoints[index].global_rotation
-		
+	await get_tree().create_timer(0.1).timeout
+	player_root.collision_layer = 2
+
+static func find_children_in_group(parent: Node, group: String, recursive: bool = false):
+	var output: Array[Node] = []
+	for child in parent.get_children() :
+		if child.is_in_group(group) :
+			output.append(child)
+	if recursive :
+		for child in parent.get_children() :
+			var recursive_output =  find_children_in_group(child, group, recursive)
+			for recursive_child in recursive_output :
+				output.append(recursive_child)
+	return output
+
 func clear_all_torches() -> void:
 	var allTorches = get_tree().get_nodes_in_group(&"Torches")
 	for torch in allTorches:

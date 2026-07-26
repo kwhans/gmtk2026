@@ -31,6 +31,7 @@ func _ready():
 	spawn_torch()
 	SignalBus.level_start.connect(on_level_start)
 	SignalBus.game_over.connect(on_game_over)
+	SignalBus.level_complete.connect(on_level_complete)
 	
 func _physics_process(delta):
 	velocity.y += -gravity * delta
@@ -141,4 +142,6 @@ func on_level_start(_levelNum) -> void:
 	if torch_reload_timer.is_stopped():
 		torch_reload_timer.start()
 	print("Player isn't dead anymore!")
-	
+
+func on_level_complete() -> void:
+	collision_layer = 0
