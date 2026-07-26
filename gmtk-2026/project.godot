@@ -10,10 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Gmtk2026"
+config/name="MazeOfShadows"
+config/description="Escape the maze before your last torch burns out."
 run/main_scene="uid://b3ytn7ckghyuy"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://byk3lu8jh7xr2"
+
+[audio]
+
+buses/default_bus_layout="uid://cs5c3yb14fpji"
 
 [autoload]
 
