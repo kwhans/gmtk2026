@@ -3,6 +3,8 @@ extends Node3D
 @onready var sky_phantom_camera_3d: PhantomCamera3D = $SkyPhantomCamera3D
 @onready var player_root: Player = $PlayerRoot
 @onready var game_over_timer: Timer = $GameOverTimer
+@onready var dark_monster_spawn_timer: Timer = $DarkMonsterSpawnTimer
+
 @onready var game_over_screen: CanvasLayer = $GameOverScreen
 @onready var level_complete_screen: CanvasLayer = $LevelCompleteScreen
 @onready var level_stub: Node3D = $LevelStub
@@ -14,11 +16,16 @@ extends Node3D
 @onready var exciting_song_fear_me: AudioStreamPlayer = $ExcitingSongFearMe
 @onready var regular_song_silence_is_dead: AudioStreamPlayer = $RegularSongSilenceIsDead
 
+var previous_torch_count:int = 1984
+
+const MONSTER = preload("res://game/Monster.tscn")
+
 var currentSong:AudioStreamPlayer = null
 
 var is_game_over: bool = false
 var currentLevel: int = 1
 var torches_remaining: int = 3
+var most_recent_player_spawn_point: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -38,6 +45,7 @@ func _unhandled_input(event):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func on_game_over() -> void:
+	dark_monster_spawn_timer.stop()
 	if is_game_over:
 		return
 	is_game_over = true
@@ -86,6 +94,7 @@ func loadLevel(levelNum:int) -> void:
 			get_tree().change_scene_to_file("res://game/WinScreen.tscn")
 			return
 			
+	dark_monster_spawn_timer.stop()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if newLevelScene == null:
 		return
@@ -102,7 +111,7 @@ func loadLevel(levelNum:int) -> void:
 	level_stub.add_child(newLevelInstance)
 	SignalBus.level_start.emit(currentLevel)
 	restore_master_bus(0.5)
-	playSongNumber(randi()%4) # play a random regular song
+	#playSongNumber(randi()%4) # play a random regular song
 	
 	# stick player at start
 	var spawnPoints = get_tree().get_nodes_in_group(&"StartPosition")
@@ -116,6 +125,8 @@ func loadLevel(levelNum:int) -> void:
 		player_root.global_position = spawnPoints[index].global_position
 		player_root.global_rotation = spawnPoints[index].global_rotation
 		
+	most_recent_player_spawn_point = player_root.global_position
+	
 func clear_all_torches() -> void:
 	var allTorches = get_tree().get_nodes_in_group(&"Torches")
 	for torch in allTorches:
@@ -126,17 +137,23 @@ func on_load_torches(torch_count:int) -> void:
 	notify_of_updated_torch_count()
 
 func on_torch_thrown() -> void:
-	var previousTorchCount = torches_remaining
 	torches_remaining = max(torches_remaining - 1, 0)
-	if previousTorchCount != torches_remaining:
-		notify_of_updated_torch_count()
+	notify_of_updated_torch_count()
 		
 func notify_of_updated_torch_count() -> void:
+	const MUSIC_THRESHOLD:int = 1
+	if previous_torch_count == torches_remaining:
+		return
+	if (torches_remaining <= MUSIC_THRESHOLD) and (previous_torch_count > MUSIC_THRESHOLD):
+		playSongNumber(randi() % 5)
+		
 	torch_count_label.text = str(torches_remaining)
 	player_root.out_of_torches = torches_remaining <= 0
 	if player_root.out_of_torches:
-		playSong(exciting_song_fear_me)
+		dark_monster_spawn_timer.start()
 		SignalBus.out_of_torches.emit()
+		
+	previous_torch_count = torches_remaining
 	
 func playSongNumber(songNumber:int)->void:
 	match songNumber:
@@ -211,3 +228,12 @@ func restore_master_bus(duration: float = 0.0) -> void:
 	
 	tween.tween_callback(func(): AudioServer.set_bus_volume_db(bus_index, 0.0))
 	
+func spawn_monster_at_start() -> void:
+	var new_monster = MONSTER.instantiate() as Monster
+	new_monster.gavinVariant = (randf() > 0.5)
+	new_monster.alreadyMoving = true
+	add_child(new_monster)
+	new_monster.global_position = most_recent_player_spawn_point
+	
+func _on_dark_monster_spawn_timer_timeout() -> void:
+	spawn_monster_at_start()

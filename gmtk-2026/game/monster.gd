@@ -4,6 +4,8 @@ class_name Monster
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var speed:float = 3.0
 @export var gavinVariant:bool = false
+@export var alreadyMoving:bool = false
+
 @onready var idle_sprite: MeshInstance3D = $IdleSprite
 @onready var move_sprite: MeshInstance3D = $MoveSprite
 @onready var dying_sprite: MeshInstance3D = $DyingSprite
@@ -81,7 +83,7 @@ func init_state_machine() -> void:
 	
 	hsm.add_transition(idle_state, move_state, EVENT_OUT_OF_TORCHES)
 	
-	hsm.initial_state = idle_state
+	hsm.initial_state = move_state if alreadyMoving else idle_state
 	hsm.initialize(self)
 	hsm.set_active(true)
 	

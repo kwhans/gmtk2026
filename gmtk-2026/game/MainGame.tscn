@@ -71,6 +71,9 @@ vertical_rotation_offset = 0.7941248096574199
 spring_length = 2.0
 shape = SubResource("SeparationRayShape3D_u3mfo")
 look_at_offset = Vector3(0, 2.5, 0)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1206180581]
@@ -87,6 +90,9 @@ look_at_target = NodePath("../PlayerRoot")
 tween_resource = SubResource("Resource_q5fd3")
 inactive_update_mode = 1
 follow_offset = Vector3(0, 30, 0)
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="GameOverTimer" type="Timer" parent="." unique_id=2009411678]
@@ -154,4 +160,8 @@ bus = &"Music"
 stream = ExtResource("13_itulm")
 bus = &"Music"
 
+[node name="DarkMonsterSpawnTimer" type="Timer" parent="." unique_id=1753748283]
+wait_time = 5.0
+
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]
+[connection signal="timeout" from="DarkMonsterSpawnTimer" to="." method="_on_dark_monster_spawn_timer_timeout"]
