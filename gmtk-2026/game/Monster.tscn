@@ -140,7 +140,7 @@ color_ramp = SubResource("GradientTexture1D_dpj5p")
 
 [sub_resource type="QuadMesh" id="QuadMesh_a5j24"]
 
-[node name="Monster" type="CharacterBody3D" unique_id=1268199021]
+[node name="Monster" type="CharacterBody3D" unique_id=1268199021 groups=["Monsters"]]
 collision_layer = 8
 collision_mask = 17
 script = ExtResource("1_4ygbb")

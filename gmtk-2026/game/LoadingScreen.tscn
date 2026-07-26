@@ -62,5 +62,6 @@ layout_mode = 2
 
 [node name="MessageLabel" type="Label" parent="VBoxContainer" unique_id=1763022017]
 layout_mode = 2
-text = "Something lurks in the darkness."
+text = "What hides in the dark?"
 label_settings = SubResource("LabelSettings_aun6x")
+horizontal_alignment = 1

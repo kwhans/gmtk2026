@@ -63,7 +63,8 @@ func _on_game_over_timer_timeout() -> void:
 
 func on_level_complete() -> void:
 	playSong(null)
-	fade_out_master_bus(2.0)
+	#fade_out_master_bus(2.0)
+	clear_all_torches()
 	is_game_over = true
 	level_complete_screen.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -92,10 +93,11 @@ func loadLevel(levelNum:int, generate_seed: int = 0) -> void:
 		1:
 			newLevelScene = load("res://levels/maze1.tscn")
 		2:
-			newLevelScene = load("res://levels/maze2.tscn")
-		3:
 			newLevelScene = load("res://levels/generator/seeded_maze.tscn")
-			
+		3:
+			newLevelScene = load("res://levels/maze2.tscn")
+		4:
+			newLevelScene = load("res://levels/generator/seeded_maze.tscn")
 		
 		_:
 			#printerr("Unrecognized level: ", levelNum)
@@ -159,6 +161,9 @@ func clear_all_torches() -> void:
 	var allTorches = get_tree().get_nodes_in_group(&"Torches")
 	for torch in allTorches:
 		torch.queue_free()
+	var allMonsters = get_tree().get_nodes_in_group(&"Monsters")
+	for monster in allMonsters:
+		monster.queue_free()
 
 func on_load_torches(torch_count:int) -> void:
 	torches_remaining = torch_count

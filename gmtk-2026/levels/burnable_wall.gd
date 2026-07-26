@@ -11,8 +11,9 @@ func _on_burn_area_body_entered(body: Node3D) -> void:
 func start_burning():
 	print("the wall is on fire")
 	fire_pfx.emitting = true
-	burning_sound.play()
-	burn_time.start()
+	if burn_time.is_stopped():
+		burn_time.start()
+		burning_sound.play()
 
 func _on_burn_time_timeout() -> void:
 	$StaticBody3D.collision_layer = 0
