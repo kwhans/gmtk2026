@@ -32,6 +32,7 @@ func generate_maze() -> void:
 		var newMonster: Monster = monster_scene.instantiate()
 		var monsterx = randi_range(0, maze_size - 1)
 		var monstery = randi_range(0, maze_size - 3)
+		newMonster.gavinVariant = m % 2 > 0
 		newMonster.position = calculateTilePosition(monsterx, monstery) + (Vector3.UP * 1.5)
 		add_child(newMonster)
 

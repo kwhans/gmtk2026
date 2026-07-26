@@ -55,6 +55,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PlayerRoot" parent="." unique_id=1112919133 node_paths=PackedStringArray("player_pcam") instance=ExtResource("3_q5fd3")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+collision_layer = 2
 player_pcam = NodePath("PlayerPhantomCamera3D")
 
 [node name="PlayerPhantomCamera3D" type="Node3D" parent="PlayerRoot" unique_id=474255065 node_paths=PackedStringArray("follow_target")]
@@ -71,9 +72,6 @@ vertical_rotation_offset = 0.7941248096574199
 spring_length = 2.0
 shape = SubResource("SeparationRayShape3D_u3mfo")
 look_at_offset = Vector3(0, 2.5, 0)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
-align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1206180581]
@@ -90,9 +88,6 @@ look_at_target = NodePath("../PlayerRoot")
 tween_resource = SubResource("Resource_q5fd3")
 inactive_update_mode = 1
 follow_offset = Vector3(0, 30, 0)
-align_transform_with_view = Callable()
-align_position_with_view = Callable()
-align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="GameOverTimer" type="Timer" parent="." unique_id=2009411678]
