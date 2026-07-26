@@ -85,6 +85,14 @@ func _input(event):
 		if event.pressed:
 			throw_torch()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed('screenshot'):
+		take_screenshot()
+
+func take_screenshot() -> void:
+	if GlobalGameState.allowDevTools:
+		get_viewport().get_texture().get_image().save_png(OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP) + '/image' + str(Time.get_ticks_msec())  + '.png')
+
 func throw_torch():
 	if player_is_dead:
 		return
