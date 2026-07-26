@@ -76,12 +76,14 @@ func on_load_next_level() -> void:
 func on_retry_level() -> void:
 	print("Reload level")
 	clear_all_torches()
-	loadLevel(currentLevel)
+	loadLevel(currentLevel, GlobalGameState.levelSeed)
 	sky_phantom_camera_3d.priority = 0
 	game_over_screen.visible = false
 	is_game_over = false
 	
-func loadLevel(levelNum:int) -> void:
+func loadLevel(levelNum:int, generate_seed: int = 0) -> void:
+	if generate_seed == 0:
+		GlobalGameState.levelSeed = randi()
 	var newLevelScene : Resource = null
 	match levelNum:
 		1:

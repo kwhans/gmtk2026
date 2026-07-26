@@ -16,22 +16,26 @@ var mazeSpaces: Array
 var verticalWalls: Array
 var horizontalWalls: Array
 
+var rando : RandomNumberGenerator
+
 func _ready() -> void:
 	super._ready()
 	generate_maze()
 
 func generate_maze() -> void:
+	rando = RandomNumberGenerator.new()
+	rando.seed = GlobalGameState.levelSeed
 	mazeSpaces = build2Darray(maze_size, maze_size)
 	verticalWalls = build2Darray(maze_size + 1, maze_size)
 	horizontalWalls = build2Darray(maze_size, maze_size + 1)
 	buildOuterWalls()
 	randomInnerWalls()
-	%PlayerStartPosition.position.x = wallWidth * randf_range(maze_size / (-2.0), maze_size / 2.0)
-	%Goal.position.x = wallWidth * randf_range(maze_size / (-2.0), maze_size / 2.0)
+	%PlayerStartPosition.position.x = wallWidth * rando.randf_range(maze_size / (-2.0), maze_size / 2.0)
+	%Goal.position.x = wallWidth * rando.randf_range(maze_size / (-2.0), maze_size / 2.0)
 	for m in numberOfMonsters:
 		var newMonster: Monster = monster_scene.instantiate()
-		var monsterx = randi_range(0, maze_size - 1)
-		var monstery = randi_range(0, maze_size - 3)
+		var monsterx = rando.randi_range(0, maze_size - 1)
+		var monstery = rando.randi_range(0, maze_size - 3)
 		newMonster.gavinVariant = m % 2 > 0
 		newMonster.position = calculateTilePosition(monsterx, monstery) + (Vector3.UP * 1.5)
 		add_child(newMonster)
@@ -46,8 +50,8 @@ func buildOuterWalls():
 		
 func randomInnerWalls():
 	for i in round(pow(maze_size, 1.5)):
-		addWallToScene(true, randi_range(0, maze_size - 1), randi_range(1, maze_size - 1), i < numberOfBurnableWalls)
-		addWallToScene(false, randi_range(0, maze_size - 1), randi_range(1, maze_size - 1), i < numberOfBurnableWalls)
+		addWallToScene(true, rando.randi_range(0, maze_size - 1), rando.randi_range(1, maze_size - 1), i < numberOfBurnableWalls)
+		addWallToScene(false, rando.randi_range(0, maze_size - 1), rando.randi_range(1, maze_size - 1), i < numberOfBurnableWalls)
 
 func addWallToScene(horizontal: bool, x, y, burnable: bool = false) -> Node3D:
 	#check for if the space is taken
