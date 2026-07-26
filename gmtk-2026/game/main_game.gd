@@ -43,6 +43,8 @@ func _unhandled_input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event is InputEventKey and event.keycode == KEY_ESCAPE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	elif event.is_action_pressed("skip_level"):
+		on_load_next_level()
 
 func on_game_over() -> void:
 	dark_monster_spawn_timer.stop()
@@ -90,9 +92,9 @@ func loadLevel(levelNum:int, generate_seed: int = 0) -> void:
 		1:
 			newLevelScene = load("res://levels/maze1.tscn")
 		2:
-			newLevelScene = load("res://levels/generator/seeded_maze.tscn")
-		3:
 			newLevelScene = load("res://levels/maze2.tscn")
+		3:
+			newLevelScene = load("res://levels/generator/seeded_maze.tscn")
 			
 		
 		_:
