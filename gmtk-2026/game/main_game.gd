@@ -82,6 +82,7 @@ func on_retry_level() -> void:
 	is_game_over = false
 	
 func loadLevel(levelNum:int, generate_seed: int = 0) -> void:
+	print("Loading level: ", levelNum)
 	if generate_seed == 0:
 		GlobalGameState.levelSeed = randi()
 	var newLevelScene : Resource = null
@@ -90,6 +91,10 @@ func loadLevel(levelNum:int, generate_seed: int = 0) -> void:
 			newLevelScene = load("res://levels/maze1.tscn")
 		2:
 			newLevelScene = load("res://levels/generator/seeded_maze.tscn")
+		3:
+			newLevelScene = load("res://levels/maze2.tscn")
+			
+		
 		_:
 			#printerr("Unrecognized level: ", levelNum)
 			restore_master_bus()
